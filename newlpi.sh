@@ -7,11 +7,11 @@ error() { printf "Something went wrong, maybe it was the script, maybe it was yo
 
 prescript() { \
 	PS3='LPI needs install; dialog for menus and vim for text editing, before the rest of the script can run. Would you like to install dialog and vim, or quit LPI?: '
-	options=("Install Dialog, vim" "Quit")
+	options=("Install Dialog and vim" "Quit")
 	select opt in "${options[@]}"
 	do
 		case $opt in
-			"Install Dialog")
+			"Install Dialog and vim")
 				pacman -Sy --noconfirm dialog vim
 				break
 			;;
@@ -33,7 +33,7 @@ partitiondrive() { \
 	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. DISCLAIMER: WHATEVER DRIVE YOU CHOISE WILL BE WIPED, ARE YOU SURE YOU WANT TO CONTINUE?" 10 60
 
 	PS3='Choose a drive: '
-	options=("/dev/sda/, /dev/sdb/, /dev/sdc/, /dev/sdd/, /dev/sd0")
+	options=("/dev/sda/" "/dev/sdb/" "/dev/sdc/" "/dev/sdd/" "/dev/sd0")
 	select opt in "${options[@]}"
 	do
 		case $opt in
@@ -106,3 +106,6 @@ welcomemsg || error "User Exited."
 
 # Get sizes for drives, make the partitions, and format the partitions
 partitiondrive || error "User Exited."
+
+# Ask to edit mirror list
+mirrorlist || error "User Exited."
