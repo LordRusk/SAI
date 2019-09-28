@@ -9,10 +9,10 @@ prescript() { \
 	PS3='LPI needs dialog and a to check a few things before the rest of the script can run. Would you like to install dialog and run these checks or quit LPI?: '
 	options=("Install Dialog" "Quit")
 	select opt in "${options[@]}"
-	doecho -e "o\nn\np\n1\n\n\nw" | fdisk /dev/sd
+	do
 		case $opt in
 			"Install Dialog")
-				pacman -Syu --noconfirm dialog
+				pacman -Sy --noconfirm dialog
 				break
 			;;
 			"Quit")
@@ -30,8 +30,9 @@ welcomemsg() { \
 	}
 
 partitiondrive() { \
-	rps=$(dialog --inputbox "How big big do you want your root partition with extension? (i.E 30gb) The lowest you want to go is 5gb for a VERY small harddrive. Anything with over 250gb you should make it 30gb." 10 60 3>&1 1>&2 2>&3 3>&1)
+	rps=$(dialog --inputbox "How big big do you want your root partition with extension? (i.E 30gb) The lowest you want to go is 5gb for a VERY small harddrive. Anything with over 250gb you should make it 30gb." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	hps=$(dialog --inputbox "If you want your home partition to be something other than the rest of the drive (maybe you are duel booting) put it bewlow, if not, leave it blank." 10 60 3>&1 1>&2 2>&3 3>&1)
+
 	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk /dev/sda
 
 	mkfs.fat -F32 /dev/sda1
@@ -56,17 +57,4 @@ prescript || error "User Exited."
 welcomemsg || error "User Exited."
 
 # Get sizes for drives, make the partitions, and format the partitions
-partitiondrive || error 'User Exited."
-
-
-
-
-
-
-
-
-
-
-
-
-
+partitiondrive || error "User Exited."
