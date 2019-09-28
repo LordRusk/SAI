@@ -68,7 +68,7 @@ partitiondrive() { \
 		esac
 	done
 
-	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 17 40
+	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 10 40
 
 	rps=$(dialog --inputbox "How big big do you want your root partition with extension? (i.E 30gb) The lowest you want to go is 5gb for a VERY small harddrive. Anything with over 250gb you should make it 30gb." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	hps=$(dialog --inputbox "If you want your home partition to be something other than the rest of the drive (maybe you are duel booting) put it bewlow, if not, leave it blank." 10 60 3>&1 1>&2 2>&3 3>&1)
@@ -85,7 +85,7 @@ partitiondrive() { \
 }
 
 mirrorlist() { \
-	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 15 60
+	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 14 60
 	vim /etc/pacman.d/mirrorlist
 }
 
@@ -93,7 +93,7 @@ install() { \
 	dialog --title "It's Finally Time!!" --msgbox "It's time to install, from here its all but automatic, so let LPI do its thing and sit back. Depending on how good your internet is, is how fast the install will be. Ready?" 7 35
 	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog wget git make vim ranger pulseaudio pulseaudio-alsa pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv unrar unzip zathura zathura-djvu zathura-pdf-mupdf firefox
 
-	dialog --title "Install Finished!!" --msgbox "LPI is done installing the system, its time to start configuring things inside the system like grub, locale, etc." 15 30
+	dialog --title "Base Install Finished!!" --msgbox "LPI is done installing the base arcj system, its time to start configuring things inside the system like grub, locale, etc." 15 30
 
 }
 
@@ -103,12 +103,10 @@ postinstall() { \
 	# All configuring and scripts must be ran in a seperate script to function in chroot
 	cp lpi2.sh /mnt
 	arch-chroot /mnt sh /lpi2.sh
-
-	echo 'cool'
 }
 
 finish() {
-	dialog --title "LPI has finished" --msgbox "As long as there were no hidden errors, LPI has successfully installed everything needed for a base arch install. LPI will now reboot, afterwords just log in and start installing your graphical enviroment"
+	dialog --title "LPI has finished" --msgbox "As long as there were no hidden errors, LPI has successfully installed everything needed for a base arch install. LPI will now reboot, afterwords just log in and start installing your graphical enviroment" 10 60
 
 	reboot
 }
