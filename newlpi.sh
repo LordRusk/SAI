@@ -80,13 +80,10 @@ partitiondrive() { \
 	mount /dev/sda2 /mnt
 	mkdir /mnt/home
 	mount /dev/sda3 /mnt/home
+	}
 
-	echo "done"
-}
-
-mirrorlist() {
-	mle=$(dialog --title "Would you like to edit the mirror list?" --yesno "The defualt Arch mirrors can be slow and sometimes just dont work. Would you like to edit the mirror list, (Put # before mirrors not close to you) it will greatly improve downloads speeds of anything installed through pacman" 10 60)
-	echo $mle
+mirrirlist() {
+	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 15 60
 }
 
 installbase() {
@@ -105,6 +102,3 @@ welcomemsg || error "User Exited."
 
 # Get sizes for drives, make the partitions, and format the partitions
 partitiondrive || error "User Exited."
-
-# Ask to edit mirror list
-mirrorlist || error "User Exited."
