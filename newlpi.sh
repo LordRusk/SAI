@@ -6,13 +6,13 @@
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows"; exit;}
 
 prescript() { \
-	PS3='LPI needs dialog and a to check a few things before the rest of the script can run. Would you like to install dialog and run these checks or quit LPI?: '
+	PS3='LPI needs install; dialog for menus, vim for text editing, and ranger to debug, before the rest of the script can run. Would you like to install dialog, vim, and ranger or quit LPI?: '
 	options=("Install Dialog" "Quit")
 	select opt in "${options[@]}"
 	do
 		case $opt in
 			"Install Dialog")
-				pacman -Sy --noconfirm dialog
+				pacman -Sy --noconfirm dialog vim ranger
 				break
 			;;
 			"Quit")
@@ -44,7 +44,19 @@ partitiondrive() { \
 	mount /dev/sda3 /mnt/home
 }
 
+mirrorlist() {
+	mle=$(dialog --title "Would you like to edit the pacman mirror list?" --yesno "The defualt Arch mirror list can be slow and some mirrors just don't work. If you edit the mirror list (by putting # before mirror links you do not want to use" 10 50)
+	if [[ "$mle" == "yes" ]] do
+		echo "$mle"
+		done
+	echo $mle
+	fi
 
+}
+
+installbase() {
+	sudo pacman -S base git dialog
+}
 
 ### THE ACTUAL SCRIPT ###
 
