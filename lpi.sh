@@ -98,8 +98,6 @@ install() { \
 }
 
 postinstall() { \
-	dialog --title "Post Install" --msgbox "Now it's time to do some post install configuring. So we are going to chroot into the new Arch install and start configuring some stuff" 15 30
-
 	genfstab /mnt >> /mnt/etc/fstab
 
 	# All configuring and scripts must be ran in a seperate script to function in chroot
@@ -130,7 +128,4 @@ mirrorlist || error "User Exited."
 install || error "User Exited."
 
 # Configure some things post install before we can install grub
-postinstall || error "User Exited."
-
-# Some post install configuration in chroot
 postinstall || error "User Exited."

@@ -15,7 +15,7 @@ locale() {
 	locale-gen
 }
 
-grub() { \
+grub() {
 	dialog --title "grub" --msgbox "When installing Arch, you need a boot manager to actually boot into your install. One of the most popular, and the one we are going to be installing is called grub." 10 40
 
 	mkdir /boot/efi
@@ -28,7 +28,9 @@ grub() { \
 	dialog --title -grub "installation done" -msgbox "Grub has been successfuly installed" 7 15
 }
 
-getuserandpass() { \
+getuserandpass() {
+	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create a user" 7 14
+
 	name=$(dialog --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
 		name=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
@@ -40,6 +42,10 @@ getuserandpass() { \
 		pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
 		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
 	done ;
+
+	dialog --title "Root password" --msgbox "You must set the root password, just incase anything ever goes wrong with your user, you can log into root and fix it. NOTE: Set the root password to something other than your main password" 10 40
+
+	passwd
 }
 
 ### THE ACTUAL SCRIPT ###
