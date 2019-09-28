@@ -85,7 +85,7 @@ partitiondrive() { \
 }
 
 mirrorlist() {
-	mle=$(dialog --title "Would you like to edit the mirror list?" --menu "The defualt Arch mirrors can be slow and sometimes just dont work. Would you like to edit the mirror list, (Put # before mirrors not close to you) it will greatly improve downloads speeds of anything installed through pacman" 10 60 3>&1 1>&2 2>&3 3>&1)
+	mle=$(dialog --title "Would you like to edit the mirror list?" --menu "The defualt Arch mirrors can be slow and sometimes just dont work. Would you like to edit the mirror list, (Put # before mirrors not close to you) it will greatly improve downloads speeds of anything installed through pacman" 10 60)
 	if [[ "$mle" == "Yes" ]]; then
 		echo "it work"
 	elif [[ "$mle" == "yes" ]]; then
