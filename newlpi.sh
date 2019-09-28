@@ -87,7 +87,7 @@ mirrorlist() {
 	vim /etc/pacman.d/mirrorlist
 }
 
-installbase() {
+install() {
 	dialog --title "It's Finally Time!!" --msgbox "It's time to install, from here its all but automatic, so let LPI do its thing and sit back. Depending on how good your internet is, is how fast the install will be. Ready?" 7 35
 	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant wget git make vim ranger pulseaudio pulseaudio-alsa pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv unrar unzip zathura zathura-djvu zathura-pdf-mupdf firefox
 
@@ -109,3 +109,6 @@ partitiondrive || error "User Exited."
 
 # Edit the mirror list for faster pacman install speeds overall
 mirrorlist || error "User Exited."
+
+# Time to install the base system + everything else they need for a funtioning Arch system.
+install || error "User Exited."
