@@ -46,12 +46,10 @@ partitiondrive() { \
 
 mirrorlist() {
 	mle=$(dialog --title "Would you like to edit the pacman mirror list?" --yesno "The defualt Arch mirror list can be slow and some mirrors just don't work. If you edit the mirror list (by putting # before mirror links you do not want to use" 10 50)
-	if [[ "$mle" == "yes" ]] do
+	if [[ "$mle" == "yes" ]]; then
 		echo "$mle"
-		done
+		fi
 	echo $mle
-	fi
-
 }
 
 installbase() {
