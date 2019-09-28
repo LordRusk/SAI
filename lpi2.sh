@@ -4,8 +4,15 @@
 
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
 
-welcome() {
+welcome() { \
 	dialog --title "Welcome to the second part of LPI" --msgbox "Welcome to the second half of LPI, where LPI configures, isntalls, and gets your new install up and to the point where all you have to do is install a WM/DE. Ready to get started?" 10 50
+}
+
+locale() {
+	dialog --title " locale" --msgbox "In order for your system, to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 15 40
+
+	vim /etc/locale.gen
+	locale-gen
 }
 
 grub() { \
@@ -41,6 +48,9 @@ getuserandpass() { \
 
 # Welcome the user to section 2 of LPI
 welcome || error "User Exited."
+
+# Configure the locale
+locale || error "User Exited."
 
 # Install and configure grub
 grub || error "User Exited."
