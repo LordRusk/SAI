@@ -110,13 +110,13 @@ install() { \
 }
 
 postinstall() { \
-	dialog --title "Post Install" --msgbox "Now it's time to do some post install configuring. So we are going to chroot into the new Arch install and start configuring some stuff" 7 15
+	dialog --title "Post Install" --msgbox "Now it's time to do some post install configuring. So we are going to chroot into the new Arch install and start configuring some stuff" 15 30
 
 	genfstab /mnt >> /mnt/etc/fstab
 
 	arch-chroot /mnt
 
-	dialog --title "Locale" --msgbox "Right now we are going to configure your location. In the file is a list of commented out time zones. Uncomment your and save/exit. If you don't know which one, just uncomment '#en-US. UTF-8 UTF-8'" 7 30
+	dialog --title "Locale" --msgbox "Right now we are going to configure your location. In the file is a list of commented out time zones. Uncomment your and save/exit. If you don't know which one, just uncomment '#en-US. UTF-8 UTF-8'" 15 30
 	vim /etc/locale.gen
 	locale.gen
 }
@@ -128,6 +128,8 @@ grub() {
 	mkdir /boot/grub/locale
 	cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 	grub-mkconfig -o /boot/grub/grub.cfg
+
+	dialog --title "Grub Installation Complete" --msgbox "Grub has been successfully installed, we are almost done..."
 }
 
 ### THE ACTUAL SCRIPT ###
@@ -148,6 +150,9 @@ mirrorlist || error "User Exited."
 
 # Time to install the base system + everything else they need for a funtioning Arch system.
 install || error "User Exited."
+
+# Configure some things post install before we can install grub
+postinstall || error "User Exited."
 
 # Some post install configuration
 postinstall || error "User Exited."
