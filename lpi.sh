@@ -26,16 +26,16 @@ prescript() { \
 }
 
 welcomemsg() { \
-	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed. (LPI will also ask if you would like to use LARBS (Luke's Automatic Bootstrapping Scripts) as a graphical interface, or let you install and configure your own!" 10 60
+	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed to a point where all you have to do, is install a graphical enviroment and you are good to go." 10 60
 }
 
 partitiondrive() { \
-	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. DISCLAIMER: WHATEVER DRIVE YOU CHOISE WILL BE WIPED, ARE YOU SURE YOU WANT TO CONTINUE?" 10 60
+	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. If you wish to not go through with the wiping, formating, and partitioning, then choose exit" 10 60
 
 	fdisk -l
 
 	PS3='Choose a drive: '
-	options=("/dev/sda/" "/dev/sdb/" "/dev/sdc/" "/dev/sdd/" "/dev/sd0")
+	options=("/dev/sda/" "/dev/sdb/" "/dev/sdc/" "/dev/sdd/" "/dev/sd0", "Exit")
 	select opt in "${options[@]}"
 	do
 		case $opt in
@@ -68,7 +68,7 @@ partitiondrive() { \
 		esac
 	done
 
-	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does ask you, just accept and continue." 17 40
+	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 17 40
 
 	rps=$(dialog --inputbox "How big big do you want your root partition with extension? (i.E 30gb) The lowest you want to go is 5gb for a VERY small harddrive. Anything with over 250gb you should make it 30gb." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	hps=$(dialog --inputbox "If you want your home partition to be something other than the rest of the drive (maybe you are duel booting) put it bewlow, if not, leave it blank." 10 60 3>&1 1>&2 2>&3 3>&1)
@@ -107,6 +107,11 @@ postinstall() { \
 	echo 'cool'
 }
 
+finish() {
+	dialog --title "LPI has finished" --msgbox "As long as there were no hidden errors, LPI has successfully installed everything needed for a base arch install. LPI will now reboot, afterwords just log in and start installing your graphical enviroment"
+
+	reboot
+}
 
 ### THE ACTUAL SCRIPT ###
 
@@ -129,3 +134,6 @@ install || error "User Exited."
 
 # Configure some things post install before we can install grub
 postinstall || error "User Exited."
+
+# Finish LPI
+finish || error "User Exited."
