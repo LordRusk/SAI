@@ -82,12 +82,16 @@ partitiondrive() { \
 	mount /dev/sda3 /mnt/home
 	}
 
-mirrirlist() {
+mirrorlist() {
 	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 15 60
+	vim /etc/pacman.d/mirrorlist
 }
 
 installbase() {
-	sudo pacman -S base git dialog
+	dialog --title "It's Finally Time!!" --msgbox "It's time to install, from here its all but automatic, so let LPI do its thing and sit back. Depending on how good your internet is, is how fast the install will be. Ready?" 7 35
+	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant wget git make vim ranger pulseaudio pulseaudio-alsa pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv unrar unzip zathura zathura-djvu zathura-pdf-mupdf firefox
+
+	genfstab /mnt >> /mnt/etc/fstab
 }
 
 ### THE ACTUAL SCRIPT ###
@@ -102,3 +106,6 @@ welcomemsg || error "User Exited."
 
 # Get sizes for drives, make the partitions, and format the partitions
 partitiondrive || error "User Exited."
+
+# Edit the mirror list for faster pacman install speeds overall
+mirrorlist || error "User Exited."
