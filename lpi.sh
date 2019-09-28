@@ -29,22 +29,10 @@ welcomemsg() { \
 	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed. (LPI will also ask if you would like to use LARBS (Luke's Automatic Bootstrapping Scripts) as a graphical interface, or let you install and configure your own!" 10 60
 }
 
-getuserandpass() { \
-	# Prompts user for new username an password.
-	name=$(dialog --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
-	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
-		name=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
-	done
-	pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1)
-	pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-	while ! [ "$pass1" = "$pass2" ]; do
-		unset pass2
-		pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
-		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-	done ;}
-
 partitiondrive() { \
 	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. DISCLAIMER: WHATEVER DRIVE YOU CHOISE WILL BE WIPED, ARE YOU SURE YOU WANT TO CONTINUE?" 10 60
+
+	fdisk -l
 
 	PS3='Choose a drive: '
 	options=("/dev/sda/" "/dev/sdb/" "/dev/sdc/" "/dev/sdd/" "/dev/sd0")
@@ -103,9 +91,9 @@ mirrorlist() { \
 
 install() { \
 	dialog --title "It's Finally Time!!" --msgbox "It's time to install, from here its all but automatic, so let LPI do its thing and sit back. Depending on how good your internet is, is how fast the install will be. Ready?" 7 35
-	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant wget git make vim ranger pulseaudio pulseaudio-alsa pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv unrar unzip zathura zathura-djvu zathura-pdf-mupdf firefox
+	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog wget git make vim ranger pulseaudio pulseaudio-alsa pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv unrar unzip zathura zathura-djvu zathura-pdf-mupdf firefox
 
-	dialog --title "Install Finished!!" --msgbox "LPI is done installing the system, its time to start configuring things inside the system like grub, locale, etc." 7 15
+	dialog --title "Install Finished!!" --msgbox "LPI is done installing the system, its time to start configuring things inside the system like grub, locale, etc." 15 30
 
 }
 
@@ -116,7 +104,7 @@ postinstall() { \
 
 	# All configuring and scripts must be ran in a seperate script to function in chroot
 	cp lpi2.sh /mnt
-	arch-chroot /mnt /lpi2.sh
+	arch-chroot /mnt sh /lpi2.sh
 
 	echo 'cool'
 }
