@@ -26,7 +26,7 @@ prescript() { \
 }
 
 welcomemsg() { \
-	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed to a point where all you have to do is install a graphical enviroment and you are good to go." 10 40
+	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed to a point where all you have to do is install a graphical enviroment and you are good to go." 11 40
 }
 
 partitiondrive() { \
