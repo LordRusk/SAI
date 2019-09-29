@@ -26,11 +26,11 @@ prescript() { \
 }
 
 welcomemsg() { \
-	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed to a point where all you have to do, is install a graphical enviroment and you are good to go." 10 60
+	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed to a point where all you have to do is install a graphical enviroment and you are good to go." 10 30
 }
 
 partitiondrive() { \
-	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. If you wish to not go through with the wiping, formating, and partitioning, then choose exit" 12 60
+	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but before we can do that we have to choose the drive to install Arch on, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which drive you would like to continue with and select it. If you wish to not go through with the wiping, formating, and partitioning of any drive, then choose exit" 12 40
 
 	fdisk -l
 
@@ -85,15 +85,15 @@ partitiondrive() { \
 }
 
 mirrorlist() { \
-	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 12 60
+	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 14 60
 	vim /etc/pacman.d/mirrorlist
 }
 
 install() { \
-	dialog --title "It's Finally Time!!" --msgbox "It's time to install, from here its all but automatic, so let LPI do its thing and sit back. Depending on how good your internet is, is how fast the install will be. Ready?" 7 35
+	dialog --title "It's Finally Time!!" --msgbox "It's time to install Base Arch, so let LPI do its thing, sit back and relax. Depending on how good your internet is, is how fast the install will be. Ready?" 10 35
 	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog wget git make vim ranger pulseaudio pulseaudio-alsa pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv unrar unzip zathura zathura-djvu zathura-pdf-mupdf firefox
 
-	dialog --title "Base Install Finished!!" --msgbox "LPI is done installing the base arcj system, its time to start configuring things inside the system like grub, locale, etc." 15 30
+	dialog --title "Base Install Finished!!" --msgbox "LPI is done installing the base arch system, its time to start configuring things inside the system like grub, locale, etc." 15 30
 
 }
 

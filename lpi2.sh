@@ -5,11 +5,11 @@
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
 
 welcome() { \
-	dialog --title "Welcome to the second part of LPI" --msgbox "Welcome to the second half of LPI, where LPI configures, isntalls, and gets your new install up and to the point where all you have to do is install a WM/DE. Ready to get started?" 10 50
+	dialog --title "Welcome to the second part of LPI" --msgbox "Welcome to the second half of LPI, where LPI configures, isntalls, and gets your new Arch install up and to the point where all you have to do is install a WM/DE. Ready to get started?" 10 50
 }
 
 confdrive() {
-	dialog --title "Confirm drive" "Please confirm the drive you installed choose to intall arch on..." 7 14
+	dialog --title "Confirm drive" --msgbox "Please confirm the drive you installed choose to intall arch on..." 7 14
 
 	fdisk -l
 
@@ -44,7 +44,7 @@ confdrive() {
 }
 
 locale() {
-	dialog --title " locale" --msgbox "In order for your system, to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 15 40
+	dialog --title " locale" --msgbox "In order for your system, to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 10 40
 
 	vim /etc/locale.gen
 	locale-gen
@@ -64,7 +64,7 @@ grub() {
 }
 
 getuserandpass() {
-	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create a user" 7 30
+	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create your personal user, setup its password, and also set the root password" 7 30
 
 	name=$(dialog --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
@@ -101,6 +101,3 @@ grub || error "User Exited."
 
 # Make user
 getuserandpass || error "User Exited."
-echo 'epic'
-
-
