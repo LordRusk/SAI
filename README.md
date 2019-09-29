@@ -12,3 +12,7 @@ cd LPI
 sh lpi.sh
 ```
 Thats it, you are on your way to the laziest Arch install of your life.
+
+# FAQ
+Q: Why is there two lpi.sh's? `lpi.sh // lpi2.sh `
+  A: The reason why LPI needs two scripts is: In a script, you can't chroot into an install and just continue the scipt, the chroot itself is all one command. The way I get around this is haveing two scripts and running `arch-chroot /mnt /lpi2.sh` (after copying lpi2.sh to /mnt) meaning, as far as the first script is concerned, everything inside the chroot (the second script) is one command.
