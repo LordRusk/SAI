@@ -6,7 +6,7 @@
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows"; exit; }
 
 prescript() { \
-	PS3='LPI needs install; dialog for menus and vim for text editing, before the rest of the script can run. Would you like to install dialog and vim, or quit LPI?: '
+	PS3='LPI needs install dialog for menus and vim for text editing, before the rest of the script can run. Would you like to install dialog and vim, or quit LPI?: '
 	options=("Install Dialog and vim" "Quit")
 	select opt in "${options[@]}"
 	do
