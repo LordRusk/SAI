@@ -84,6 +84,14 @@ getuserandpass() {
 	passwd
 }
 
+wificonfig() {
+	dialog --titile "Wifi Config" --msgbox "The last thing we need to do is setup NetworkManager. Network manager is used to manage networks, so just choose your network, connect, then exit and you'll be on your way!" 10 40
+	
+	systemctl enable NetworkManager
+	systemctl start NetworkManager
+	nmtui
+}
+
 ### THE ACTUAL SCRIPT ###
 
 ### this is how everything happens ###
@@ -102,3 +110,6 @@ grub || error "User Exited."
 
 # Make user
 getuserandpass || error "User Exited."
+
+# Setup networkmanager
+wificonfig || error "User Exited."
