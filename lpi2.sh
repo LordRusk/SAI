@@ -9,7 +9,7 @@ welcome() { \
 }
 
 confdrive() {
-	dialog --title "Confirm drive" --msgbox "Please confirm the drive you installed choose to intall arch on..." 7 25
+	dialog --title "Confirm drive" --msgbox "Please confirm the drive you installed choose to intall arch on..." 8 26
 
 	lsblk
 	echo ""
