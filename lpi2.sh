@@ -9,9 +9,10 @@ welcome() { \
 }
 
 confdrive() {
-	dialog --title "Confirm drive" --msgbox "Please confirm the drive you installed choose to intall arch on..." 7 14
+	dialog --title "Confirm drive" --msgbox "Please confirm the drive you installed choose to intall arch on..." 7 25
 
-	fdisk -l
+	lsblk
+	echo ""
 
 	PS3='Choose a drive: '
 	options=("/dev/sda/" "/dev/sdb/" "/dev/sdc/" "/dev/sdd/" "/dev/sd0")
@@ -44,7 +45,7 @@ confdrive() {
 }
 
 locale() {
-	dialog --title " locale" --msgbox "In order for your system, to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 10 40
+	dialog --title " locale" --msgbox "In order for your system to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 10 40
 
 	vim /etc/locale.gen
 	locale-gen
@@ -64,7 +65,7 @@ grub() {
 }
 
 getuserandpass() {
-	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create your personal user, setup its password, and also set the root password" 7 30
+	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create your personal user, setup its password, and also set the root password" 9 30
 
 	name=$(dialog --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
@@ -78,7 +79,7 @@ getuserandpass() {
 		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
 	done ;
 
-	dialog --title "Root password" --msgbox "You must set the root password, just incase anything ever goes wrong with your user, you can log into root and fix it. NOTE: Set the root password to something other than your main password" 10 40
+	dialog --title "Root password" --msgbox "You must set the root password just incase anything ever goes wrong with your user, you can log into root and fix it. NOTE: Set the root password to something other than your main password" 10 40
 
 	passwd
 }
