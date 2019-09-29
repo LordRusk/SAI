@@ -30,7 +30,7 @@ welcomemsg() { \
 }
 
 partitiondrive() { \
-	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. If you wish to not go through with the wiping, formating, and partitioning, then choose exit" 10 60
+	dialog --title "Partitioning and formating" --yesno "First we need to partition the drive, but first we have to choose the drive and wipe it, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which one you want to install Arch and type out the name. If you wish to not go through with the wiping, formating, and partitioning, then choose exit" 12 60
 
 	fdisk -l
 
@@ -85,7 +85,7 @@ partitiondrive() { \
 }
 
 mirrorlist() { \
-	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 14 60
+	dialog --title "MirrorList" --msgbox "Arch's defualt mirror list can be slow and sometimes just has mirrors that don't work. To improve download speed for the rest of your time with this install, you are going to need to edit the mirror list. The mirrorlist is composed of a bunch of links and locations. All you need to do it comment out (add # before) whichever mirror links aren't close to you. (i.E. If you live in america, comment out mirrors that are not in located in the USA)" 12 60
 	vim /etc/pacman.d/mirrorlist
 }
 

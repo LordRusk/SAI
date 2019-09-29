@@ -9,7 +9,7 @@ welcome() { \
 }
 
 confdrive() {
-	dialog --title "Confirm drive" "Please confirm the drive you installed choose to intall arch on..."
+	dialog --title "Confirm drive" "Please confirm the drive you installed choose to intall arch on..." 7 14
 
 	fdisk -l
 
@@ -64,7 +64,7 @@ grub() {
 }
 
 getuserandpass() {
-	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create a user" 7 14
+	dialog --title "Creating a user" --msgbox "Next LPI is going to help you create a user" 7 30
 
 	name=$(dialog --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
