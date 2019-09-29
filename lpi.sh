@@ -30,7 +30,7 @@ welcomemsg() { \
 }
 
 partitiondrive() { \
-	dialog --title "Partitioning and formating" --msgbox "First we need to partition the drive, but before we can do that we have to choose the drive to install Arch on, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which drive you would like to continue with and select it. If you wish to not go through with the wiping, formating, and partitioning of any drive, then choose exit" 12 40
+	dialog --title "Partitioning and formating" --msgbox "First we need to partition the drive, but before we can do that we have to choose the drive to install Arch on, it will usually be /dev/sda, but it is still good to check. All the current connected drives will be listed, identify which drive you would like to continue with and select it. If you wish to not go through with the wiping, formating, and partitioning of any drive, then choose exit" 12 45
 
 	lsblk
 	echo ""
