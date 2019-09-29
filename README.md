@@ -5,8 +5,8 @@ LPI is a helpful tool for getting from booting from the Arch usb, to be able to 
 
 # How To
 After you boot fron the arch usb, all you have to do is run these commands:
->pacman -Sy git
->git clone https://www.github.com/LordRusk/LPI
->cd LPI
->sh lpi.sh
+'pacman -Sy git'
+'git clone https://www.github.com/LordRusk/LPI'
+'cd LPI'
+'sh lpi.sh'
 Thats it, you are on your way to the laziest Arch install of your life.
