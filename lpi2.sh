@@ -58,7 +58,7 @@ grub() {
 	mount /dev/sda1 /boot/efi
 	grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
 	mkdir /boot/grub/locale
-	cp  /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+	cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 	grub-mkconfig -o /boot/grub/grub.cfg
 
 	dialog --title -grub "installation done" -msgbox "Grub has been successfuly installed" 7 15
