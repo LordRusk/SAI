@@ -55,7 +55,7 @@ grub() {
 	dialog --title "grub" --msgbox "When installing Arch, you need a boot manager to actually boot into your install. One of the most popular, and the one we are going to be installing is called grub." 10 40
 
 	mkdir /boot/efi
-	mount /dev/sda1 /boot/efi
+	mount "$drive"1 /boot/efi
 	grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
 	mkdir /boot/grub/locale
 	cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
@@ -86,10 +86,8 @@ getuserandpass() {
 
 wificonfig() {
 	dialog --titile "Wifi Config" --msgbox "The last thing we need to do is setup NetworkManager. Network manager is used to manage networks, so just choose your network, connect, then exit and you'll be on your way!" 10 40
-	
+
 	systemctl enable NetworkManager
-	systemctl start NetworkManager
-	nmtui
 }
 
 ### THE ACTUAL SCRIPT ###
