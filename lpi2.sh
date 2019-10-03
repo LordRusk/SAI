@@ -79,12 +79,30 @@ getuserandpass() {
 		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
 	done ;
 
-	dialog --title "Root password" --msgbox "You must set the root password just incase anything ever goes wrong with your user, you can log into root and fix it. NOTE: Set the root password to something other than your main password" 10 40
+	dialog --title "Setting root password" --msgbox "Last we need to set root password just incase anything goes wrong with your main account" 9 30
 
-	passwd
+	rpass1=$(dialog --no-cancel --passwordbox "Enter a password for root." 10 60 3>&1 1>&2 2>&3 3>&1)
+	rpass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+	while ! [ "$rpass1" = "$rpass2" ]; do
+		unset pass2
+		pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
+		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+	done
 }
 
-wificonfig() {
+adduserandpass() { \
+	# Adds user `$name` with password $pass1.
+	dialog --infobox "Adding user \"$name\"..." 4 50
+	useradd -m -g wheel "$name"
+	echo "$name:$pass1" | chpasswd
+	unset pass1 pass2 ;
+
+	dialog --infobox "Setting root password..." 4 50
+	echo "root:$rpass1" | chpasswd
+	unset rpass1 rpass2 ;
+}
+
+wificonfig() { \
 	dialog --titile "Wifi Config" --msgbox "The last thing we need to do is setup NetworkManager. Network manager is used to manage networks, so just choose your network, connect, then exit and you'll be on your way!" 10 40
 
 	systemctl enable NetworkManager
@@ -108,6 +126,9 @@ grub || error "User Exited."
 
 # Make user
 getuserandpass || error "User Exited."
+
+# Add user and set root password
+adduserandpass || error "Failed to add user and pass."
 
 # Setup networkmanager
 wificonfig || error "User Exited."

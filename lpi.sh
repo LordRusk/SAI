@@ -71,18 +71,21 @@ partitiondrive() { \
 
 	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 10 40
 
+	dialog --title "Please delete past partitions" --msgbox "Sometimes, depending on the partition scheme the partiton command can have errors, to combat these error please delete all past partitions, write to the disk and exit." 10 40
+	cfdisk "$drive"
+
 	rps=$(dialog --inputbox "How big big do you want your root partition with extension? (i.E 30gb) The lowest you want to go is 5gb for a VERY small harddrive. Anything with over 250gb you should make it 30gb." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	hps=$(dialog --inputbox "If you want your home partition to be something other than the rest of the drive (maybe you are duel booting) put it bewlow, if not, leave it blank." 10 60 3>&1 1>&2 2>&3 3>&1)
 
-	echo -e "d\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$drive"
+	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$drive"
 
-	mkfs.fat -F32 /dev/sda1
-	mkfs.ext4 /dev/sda2
-	mkfs.ext4 /dev/sda3
+	mkfs.fat -F32 "$drive"1
+	mkfs.ext4 "$drive"2
+	mkfs.ext4 "$drive"3
 
-	mount /dev/sda2 /mnt
+	mount "$drive"2 /mnt
 	mkdir /mnt/home
-	mount /dev/sda3 /mnt/home
+	mount "$drive"3 /mnt/home
 }
 
 mirrorlist() { \
@@ -135,4 +138,4 @@ install || error "User Exited."
 postinstall || error "User Exited."
 
 # Finish LPI
-#finish || error "User Exited."
+finish || error "User Exited."
