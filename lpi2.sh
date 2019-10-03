@@ -108,7 +108,7 @@ sudoers() {
 }
 
 wificonfig() { \
-	dialog --titile "Wifi Config" --msgbox "The last thing we need to do is setup NetworkManager. Network manager is used to manage networks, so just choose your network, connect, then exit and you'll be on your way!" 10 40
+	dialog --title "Wifi Config" --msgbox "The last thing we need to do is setup NetworkManager. Network manager is used to manage networks, so just choose your network, connect, then exit and you'll be on your way!" 10 40
 
 	systemctl enable NetworkManager
 }
@@ -134,6 +134,9 @@ getuserandpass || error "User Exited."
 
 # Add user and set root password
 adduserandpass || error "Failed to add user and pass."
+
+# Configure the sudoers file
+sudoers || error "User Exited."
 
 # Setup networkmanager
 wificonfig || error "User Exited."
