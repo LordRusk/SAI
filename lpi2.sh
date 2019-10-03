@@ -102,6 +102,11 @@ adduserandpass() { \
 	unset rpass1 rpass2 ;
 }
 
+sudoers() {
+	dialog --title "Edit user permissions" --msgbox " Lastly, we need to edit user permissions. Here you can allow your personal user to do whatever you want, or restrict it in anyway. For more infomation, check the arch wiki about the sudoers file. (NOTE: User is apart of group 'Wheel'" 15 50
+	vim /etc/sudoers
+}
+
 wificonfig() { \
 	dialog --titile "Wifi Config" --msgbox "The last thing we need to do is setup NetworkManager. Network manager is used to manage networks, so just choose your network, connect, then exit and you'll be on your way!" 10 40
 
@@ -122,7 +127,7 @@ confdrive || error "User Exited."
 locale || error "User Exited."
 
 # Install and configure grub
-grub || error "User Exited."
+grub
 
 # Make user
 getuserandpass || error "User Exited."
