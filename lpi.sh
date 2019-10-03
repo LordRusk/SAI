@@ -69,10 +69,10 @@ partitiondrive() { \
 		esac
 	done
 
-	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 10 40
-
 	dialog --title "Please delete past partitions" --msgbox "Sometimes, depending on the partition scheme the partiton command can have errors, to combat these error please delete all past partitions, write to the disk and exit." 10 40
 	cfdisk "$drive"
+
+	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 10 40
 
 	rps=$(dialog --inputbox "How big big do you want your root partition with extension? (i.E 30gb) The lowest you want to go is 5gb for a VERY small harddrive. Anything with over 250gb you should make it 30gb." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
 	hps=$(dialog --inputbox "If you want your home partition to be something other than the rest of the drive (maybe you are duel booting) put it bewlow, if not, leave it blank." 10 60 3>&1 1>&2 2>&3 3>&1)
@@ -95,7 +95,7 @@ mirrorlist() { \
 
 install() { \
 	dialog --title "It's Finally Time!!" --msgbox "It's time to install Base Arch, so let LPI do its thing, sit back and relax. Depending on how good your internet is, is how fast the install will be. Ready?" 10 35
-	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog wget git make vim ranger pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji firefox
+	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog wget git make vim ranger pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 
 	dialog --title "Base Install Finished!!" --msgbox "LPI is done installing the base arch system, its time to start configuring things inside the system like grub, locale, etc." 10 40
 

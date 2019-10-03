@@ -87,7 +87,7 @@ getuserandpass() {
 		unset pass2
 		pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
 		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-	done
+	done ;
 }
 
 adduserandpass() { \
