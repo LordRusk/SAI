@@ -26,7 +26,7 @@ prescript() { \
 }
 
 welcomemsg() { \
-	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get Arch installed to a point where all you have to do is install a graphical enviroment and you are good to go." 11 40
+	dialog --title "Welcome" --msgbox "Welcome to LPI! (Lazy Pre Install)\\n\\nThis script is a tool to help you get a base Arch install done, with some extra things already configured for your lazy needs!" 11 40
 }
 
 partitiondrive() { \
@@ -69,7 +69,7 @@ partitiondrive() { \
 		esac
 	done
 
-	dialog --title "Please delete past partitions" --msgbox "Sometimes, depending on the partition scheme the partiton command can have errors, to combat these error please delete all past partitions, write to the disk and exit." 10 40
+	dialog --title "Please delete past partitions" --msgbox "Sometimes, depending on the partition scheme the partiton command can have errors, to combat these errors, please delete all past partitions, write to the disk and exit." 10 40
 	cfdisk "$drive"
 
 	dialog --title "DISCLAIMER" --msgbox "If you are reinstalling using LPI on a partition scheme similar to the one LPI makes, it may ask you if you want to continue with the formatting. If it does, just accept and continue." 10 40
@@ -95,7 +95,7 @@ mirrorlist() { \
 
 install() { \
 	dialog --title "It's Finally Time!!" --msgbox "It's time to install Base Arch, so let LPI do its thing, sit back and relax. Depending on how good your internet is, is how fast the install will be. Ready?" 10 35
-	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub sudo dialog wget git make vim ranger yay pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
+	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub sudo dialog wget git make vim ranger yay pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 
 	dialog --title "Base Install Finished!!" --msgbox "LPI is done installing the base arch system, its time to start configuring things inside the system like grub, locale, etc." 10 40
 
@@ -110,7 +110,7 @@ postinstall() { \
 }
 
 finish() {
-	dialog --title "LPI has finished" --msgbox "As long as there were no hidden errors, LPI has successfully installed everything needed for a base arch install. LPI will now reboot, afterwords just log in and start installing your graphical enviroment" 10 60
+	dialog --title "LPI has finished" --msgbox "As long as there were no hidden errors, LPI has successfully installed everything needed for a base arch install, plus a little extra. LPI will now reboot, afterwords just log in and start installing your graphical enviroment" 10 60
 
 	reboot
 }
