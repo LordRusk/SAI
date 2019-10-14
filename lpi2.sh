@@ -41,7 +41,10 @@ confdrive() { \
 }
 
 locale() { \
-	dialog --title " locale" --msgbox "In order for your system to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 10 40
+	rc=$(dialog --title "Region/City" --inputbox "In order for some programs to work properly (discord, etc) you need to configure your region and city. The format should look like `Region/City'")
+	ln -sf /usr/share/zoneinfo/"$rc" /etc/localtime
+	
+	dialog --title "locale" --msgbox "In order for your system to work properly you are going to need to configure your locale. Uncomment (remove the #) which locale is yours. (If you live in america then uncomment '#en-US.UTF-8 UTF-8'" 10 40
 
 	vim /etc/locale.gen
 	locale-gen
