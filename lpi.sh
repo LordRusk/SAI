@@ -95,7 +95,7 @@ mirrorlist() { \
 
 install() { \
 	dialog --title "It's Finally Time!!" --msgbox "It's time to install Base Arch, so let LPI do its thing, sit back and relax. Depending on how good your internet is, is how fast the install will be. Ready?" 10 35
-	pacstrap /mnt base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub sudo dialog wget git make vim ranger yay pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
+	pacstrap /mnt base linux linux-firmware dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub sudo dialog wget git make vim ranger yay pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 
 	dialog --title "Base Install Finished!!" --msgbox "LPI is done installing the base arch system, its time to start configuring things inside the system like grub, locale, etc." 10 40
 
