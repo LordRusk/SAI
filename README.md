@@ -13,6 +13,10 @@ sh lpi.sh
 ```
 Thats it, you are on your way to the laziest Arch install of your life.
 
+# NOTES\\ToDo
+  - LPI only supports EFI booting right now, when I get around to it I will add non EFI support, but right now I have halted any development other than small bug fixes.
+  - I am thinking of moving LPI completely to slmenu. Dialog is bloat, if it doesn't have to be tui, don't make it tui. And something as simple as LPI does not need to tui.
+
 # FAQ
 Q: Why is there two lpi.sh's? `lpi.sh // lpi2.sh `
 
