@@ -90,7 +90,6 @@ getuserandpass() { \
 }
 
 adduserandpass() { \
-	# Adds user `$name` with password $pass1.
 	dialog --infobox "Adding user \"$name\"..." 4 50
 	useradd -m -g wheel "$name"
 	echo "$name:$pass1" | chpasswd
