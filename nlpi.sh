@@ -75,6 +75,7 @@ mirrorlist() {
 }
 
 fancypac() {
+	clear
 	echo "Would you like pacman to look nice while installing?"
 	fp=$(echo "Yes\\nNo" | slmenu -i -p "Would you?")
 	if [ "$fp" = "Yes" ]; then
