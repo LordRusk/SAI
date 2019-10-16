@@ -13,7 +13,7 @@ xit() {
 }
 
 prescript() {
-	sudo pacman --noconfirm -S neovim mercurial
+	sudo pacman --noconfirm -S make neovim mercurial
 
 	hg clone https://bitbucket.org/rafaelgg/slmenu
 	cd slmenu/
