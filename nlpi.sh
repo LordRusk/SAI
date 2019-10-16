@@ -3,6 +3,9 @@
 ### FUNCTIONS ###
 
 error() { printf "Spomething went wrong, maybe it was you, maybe it was the script, who knows"; exit; }
+
+nxt() { echo "Next" | slmenu}
+
 xit() {
 	xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "continue" ]; then
@@ -13,13 +16,14 @@ xit() {
 }
 
 prescript() {
-	sudo pacman --noconfirm -S make neovim mercurial
+	sudo pacman --noconfirm -S base-devel neovim mercurial
 
 	hg clone https://bitbucket.org/rafaelgg/slmenu
 	cd slmenu/
 	sudo make clean install
 	cd ../
 	rm -rf slmenu/
+	timedatectl set-ntp true
 }
 
 welcome() {
@@ -66,8 +70,7 @@ formatdrive() {
 
 mirrorlist() {
 	echo "The defualt arch mirrorlist can be slow and unreliable, please edit the mirrorlist for faster speeds."
-	xprompt="Continue?"
-	xit
+	nxt
 	nvim /etc/pacman.d/mirrorlist
 }
 
@@ -85,7 +88,7 @@ fancypac() {
 install() {
 	echo "It's time to actually install arch, ready?"
 	xprompt="Ready?"
-	xit
+	nxt
 
 	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog git vim ranger pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 }
