@@ -36,6 +36,22 @@ locale() {
 	locale-gen
 }
 
+bootmanager() {
+	echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
+	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
+	xprompt="Continue?"
+	grb=$(xit)
+	if [ grb = "Continue" ]; then
+		mkdir /boot/efi
+		mount "$drive"1 /boot/efi
+		grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
+		mkdir /boot/grub/locale
+		cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+		grub-mkconfig -o /boot/grub/grub.cfg
+	elif [ grb = "skip" ]; then
+		echo "ok"
+	fi
+
 ### THE ACTUAL SCRIPT ###
 
 # Re select the drive
