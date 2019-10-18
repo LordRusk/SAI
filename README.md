@@ -14,9 +14,9 @@ sh lpi.sh
 Thats it, you are on your way to the laziest Arch install of your life.
 
 # Notes\\ToDo
+  - LPI Has been fully moved to slmenu, the old dialog supported LPI can be here [here](https://www.github.com/LordRusk/old_LPI), Though it will not be updated from this point on.
   - LPI only supports EFI booting right now, when I get around to it I will add non EFI support.
-  - The first beta of slmenu-LPI is out, I still have yet to get slmenu installed on a virtual machiene, it doesn't have enough space to install the needed packages to get it downloaded and compiled...if only it were in the defualt repos.
-
+  
 # FAQ
 Q: Why is there two lpi.sh's? `lpi.sh // lpi2.sh `
 
