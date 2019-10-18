@@ -15,7 +15,7 @@ Thats it, you are on your way to the laziest Arch install of your life.
 
 # Notes\\ToDo
   - LPI only supports EFI booting right now, when I get around to it I will add non EFI support.
-  - I am thinking of moving LPI completely to slmenu. Dialog is bloat, if it doesn't have to have a tui, don't make it have a tui. Something as simple as LPI does not need to have a tui.
+  - The first beta of slmenu-LPI is out, I still have yet to get slmenu installed on a virtual machiene, it doesn't have enough space to install the needed packages to get it downloaded and compiled...if only it were in the defualt repos.
 
 # FAQ
 Q: Why is there two lpi.sh's? `lpi.sh // lpi2.sh `
