@@ -4,7 +4,7 @@
 
 error() { printf "Spomething went wrong, maybe it was you, maybe it was the script, who knows"; exit; }
 
-nxt() { echo "Next" | slmenu}
+nxt() { echo "Next" | slmenu; }
 
 xit() {
 	xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
