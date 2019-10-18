@@ -97,7 +97,9 @@ install() {
 postinstall() {
 	genfstab /mnt >> /mnt/etc/fstab
 
-	echo "it do be done heckin epic"
+	# All configuring and scripts must be ran in a seperate script to function in chroot
+	cp lpi2.sh /mnt
+	arch-chroot /mnt sh /lpi2.sh
 }
 
 
