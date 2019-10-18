@@ -91,7 +91,7 @@ install() {
 	xprompt="Ready?"
 	nxt
 
-	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools network-manager-applet networkmanager wireless_tools wpa_supplicant grub dialog git vim ranger pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
+	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools networkmanager nm-connection-editor network-manager-applet modemmanager mobile-broadbamodemmanager mobile-broadband-provider-info usb_modeswitchnd-provider-info usb_modeswitch wireless_tools wpa_supplicant grub dialog git vim ranger pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 }
 
 postinstall() {

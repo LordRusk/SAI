@@ -39,15 +39,85 @@ locale() {
 bootmanager() {
 	echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
 	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
-	grb=$(echo "Install Grub\\nSkip" | slmenu -p "Install or skip")
-	if [ grb = "Install Grub" ]; then
+	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
+	if [ "$grb" = "Install Grub" ]; then
 		mkdir /boot/efi
 		mount "$drive"1 /boot/efi
 		grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
 		mkdir /boot/grub/locale
 		cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 		grub-mkconfig -o /boot/grub/grub.cfg
-	elif [ grb = "Skip" ]; then
+	elif [ "$grb" = "Skip" ]; then
+		echo "ok"
+	fi
+}
+
+getuserandpass() {
+	echo "Next LPI is going to help you create your personal user, setup its password, and also set the root password"
+	name=$(echo "" | slmenu -p "Please enter the name of your new user")
+	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
+		clear
+		echo "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _."
+		name=$(echo "" | slmenu -p "Please type a valid username")
+	done
+	clear
+	pass1=$(echo "" | slmenu -p "Enter a password for the user")
+	clear
+	pass2=$(echo "" | slmenu -p "Retype Password")
+	while ! [ "$pass1" = "$pass2" ]; do
+		unset pass2
+		clear
+		echo "Passwords do not match. Enter password again."
+		pass1=$(echo "" | slmenu -p "Enter a password")
+		clear
+		pass2=$(echo "" | slmenu -p "Retype password")
+	done ;
+
+	clear
+	echo "Last, we need to set the root password, just incase anything goes wrong with your main account"
+	rpass1=$(echo "" | slmenu -p "Enter a root password")
+	clear
+	rpass2=$(echo "" | slmenu -p "Retype password")
+	while ! [ "$rpass1" = "$rpass2" ]; do
+		unset pass2
+		clear
+		echo "Passwords do not match. Enter password again."
+		rpass1=$(echo "" | slmenu -p "Enter a password")
+		clear
+		rpass2=$(echo "" | slmenu -p "Retype password")
+
+	done ;
+}
+
+adduserandpass() {
+	clear
+	echo "Adding user and setting root password"
+	useradd -m -g wheel "$name"
+	echo "$name:$pass1" | chpasswd
+	unset pass1 pass2 ;
+
+	echo "root:$rpass1" | chpasswd
+	unset rpass1 rpass2 ;
+}
+
+sudoers() {
+	clear
+	echo "Would you like to edit /etc/sudoers file? If so, your new user is in group wheel"
+	es=$(echo "Yes\\nNO" | slmenu -p "Edit /etc/sudoers?")
+	if [ "$es" = "Yes" ]; then
+		nvim /etc/sudoers
+	else
+		echo "ok"
+	fi
+}
+
+wificonfig() {
+	clear
+	echo "Would you like to enable NetworkManager?"
+	en=$(echo "Yes\\nNo" | slmenu -p "Enable NetworkManger?")
+	if [ "$en" = "Yes" ]; then
+		systemctl enable NetworkManager.service
+	else
 		echo "ok"
 	fi
 }
@@ -59,3 +129,16 @@ chosendrive
 
 # Generate the locale and get local time configured
 locale
+
+# Ask if grub should be installed or if they want to install something else
+bootmanager
+
+# Get username and password for the new user, get the root password, set the root passwor, and make the new account
+getuserandpass
+adduserandpass
+
+# Ask if they would like to edit /etc/sudoers file
+sudoers
+
+# Ask if they would like to enable networkmanager
+wificonfig
