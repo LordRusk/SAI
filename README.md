@@ -14,7 +14,7 @@ sh lpi.sh
 Thats it, you are on your way to the laziest Arch install of your life.
 
 # Notes\\ToDo
-  - LPI Has been fully moved to slmenu, the old dialog supported LPI can be here [here](https://www.github.com/LordRusk/old_LPI), Though it will not be updated from this point on.
+  - LPI Has been fully moved to slmenu, the old dialog supported LPI can be here [here](https://www.github.com/LordRusk/old_LPI), Though it will not be supported from this point on.
   - LPI only supports EFI booting right now, when I get around to it I will add non EFI support.
   
 # FAQ
