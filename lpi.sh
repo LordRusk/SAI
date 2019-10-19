@@ -37,11 +37,9 @@ welcome() {
 
 formatdrive() {
 	clear
-	echo "First thing, let's mess with the drives. But first, pick which drive you would like to install arch on"
-
-	echo ""
-	lsblk
-	cdrive=$(echo "/dev/sda\\n/dev/sdb\\n/dev/sdc\\n/dev/sdd" | slmenu -i -p "Choose a drive")
+	echo "Please select the drive you would like to install arch on"
+	sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
+	cdrive=$(echo "$sdrive" | awk '{print $1}')
 
 	clear
 	echo "How big do you want your root partition to be? Defualt is 30gb"
@@ -56,9 +54,8 @@ formatdrive() {
 	xprompt="Are you sure you want to continue?"
 	xit
 
-	echo -e "g\nd\n1\nd\n2\nd\n3\nd\n4\nd\n5\nd\n6" | fdisk "$cdrive"
-	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$cdrive"
-
+	dd if=/dev/zero of="$cdisk"  bs=512  count=1
+	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"d$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$cdrive"
 
 	mkfs.fat -F32 "$cdrive"1
 	mkfs.ext4 "$cdrive"2
