@@ -16,4 +16,5 @@ pacman --noconfirm -Sy dash neovim slmenu
 ln -sfT dash /usr/bin/sh
 
 # Launch the real script
+cd ../LPI
 sh lpi2.sh
