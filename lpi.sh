@@ -16,14 +16,14 @@ xit() {
 }
 
 prescript() {
-	sudo pacman --noconfirm -S base-devel neovim mercurial
+	pacman --noconfirm -S git
 
-	hg clone https://bitbucket.org/rafaelgg/slmenu
-	cd slmenu/
-	sudo make clean install
 	cd ../
-	rm -rf slmenu/
-	timedatectl set-ntp true
+	git clone https://www.github.com/LordRusk/rskrepo
+	cd rskrepo
+	cp pacman.conf /etc/pacman.conf
+
+	pacman --noconfirm -S nvim slmenu
 }
 
 welcome() {
