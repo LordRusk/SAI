@@ -7,7 +7,7 @@ error() { printf "Spomething went wrong, maybe it was you, maybe it was the scri
 nxt() { echo "Next" | slmenu; }
 
 xit() {
-	xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
+	xon=$(echo "Continue\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "continue" ]; then
 		echo "epic"
 	elif [ "$xom" = "exit" ]; then
@@ -23,7 +23,7 @@ prescript() {
 	cd rskrepo
 	cp pacman.conf /etc/pacman.conf
 
-	pacman --noconfirm -S nvim slmenu
+	pacman --noconfirm -Sy neovim slmenu
 }
 
 welcome() {
@@ -55,7 +55,8 @@ formatdrive() {
 	xit
 
 	dd if=/dev/zero of="$cdisk"  bs=512  count=1
-	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"d$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$cdrive"
+	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$drive"
+
 
 	mkfs.fat -F32 "$cdrive"1
 	mkfs.ext4 "$cdrive"2
