@@ -43,8 +43,8 @@ formatdrive() {
 	xprompt="Are you sure you want to continue?"
 	xit
 
-	dd if=/dev/zero of="$cdisk"  bs=512  count=1
-	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$drive"
+	dd if=/dev/zero of="$cdrive"  bs=512  count=1
+	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$cdrive"
 
 
 	mkfs.fat -F32 "$cdrive"1
