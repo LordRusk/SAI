@@ -10,7 +10,7 @@ cd rskrepo
 cp pacman.conf /etc/pacman.conf
 
 # Install needed script packages
-pacman --noconfirm -Sy dash neovim slmenu
+pacman --noconfirm -Sy dash neovim slmenu gawk grep
 
 # Make a symbolic link of dash at /usr/bin/sh
 ln -sfT dash /usr/bin/sh

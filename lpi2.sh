@@ -15,17 +15,6 @@ xit() {
 	fi
 }
 
-prescript() {
-	pacman --noconfirm -S git
-
-	cd ../
-	git clone https://www.github.com/LordRusk/rskrepo
-	cd rskrepo
-	cp pacman.conf /etc/pacman.conf
-
-	pacman --noconfirm -Sy neovim slmenu
-}
-
 welcome() {
 	clear
 	echo "Welcome to LPI (lazy Pre Install)"
@@ -102,9 +91,6 @@ postinstall() {
 
 
 ### THE ACTUAL SCRIPT ###
-
-# Pre script | install slmenu and neovim
-prescript || error "User Exited."
 
 # Welcome the user
 welcome || error "User Exited."
