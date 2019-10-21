@@ -4,22 +4,25 @@
 
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit;}
 
+nxt() { echo "Next" | slmenu -p "Continue?"; }
+
 xit() {
 	xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "continue" ]; then
 		echo "epic"
 	elif [ "$xom" = "exit" ]; then
-		exit
+		while ;; do
+			exit
+		done
+
 	fi
 }
 
 chosendrive() {
 	clear
 	echo "Please re-select the drive you installed arch on"
-
-	echo ""
-	lsblk
-	cdrive=$(echo "/dev/sda\\n/dev/sdb\\n/dev/sdc\\n/dev/sdd" | slmenu -i -p "Choose a drive")
+	sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
+	cdrive=$(echo "$sdrive" | awk '{print $1}')
 }
 
 locale() {
@@ -31,7 +34,7 @@ locale() {
 
 	clear
 	echo "Please uncoomment en_US.UTF-8 UTF-8 and other locals you may need"
-	echo "Okay" | slmenu
+	nxt
 	nvim /etc/locale.gen
 	locale-gen
 }
