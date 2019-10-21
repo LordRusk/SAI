@@ -87,8 +87,8 @@ postinstall() {
 	genfstab /mnt >> /mnt/etc/fstab
 
 	# All configuring and scripts must be ran in a seperate script to function in chroot
-	cp lpi2.sh /mnt
-	arch-chroot /mnt sh /lpi2.sh
+	cp lpi3.sh /mnt
+	arch-chroot /mnt sh /lpi3.sh
 }
 
 
