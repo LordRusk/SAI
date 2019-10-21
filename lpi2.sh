@@ -11,7 +11,7 @@ xit() {
 	if [ "$xom" = "continue" ]; then
 		echo "epic"
 	elif [ "$xom" = "exit" ]; then
-		while ;; do
+		while [ "$xom" = "$zom" ]; do
 			exit
 		done
 	fi

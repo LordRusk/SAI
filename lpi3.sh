@@ -7,11 +7,11 @@ error() { printf "Something went wrong, maybe it was the script, maybe it was yo
 nxt() { echo "Next" | slmenu -p "Continue?"; }
 
 xit() {
-	xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
+hutxon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "continue" ]; then
 		echo "epic"
 	elif [ "$xom" = "exit" ]; then
-		while ;; do
+		while [ "$xom" = "$xom" ]; do
 			exit
 		done
 
