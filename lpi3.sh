@@ -1,8 +1,5 @@
 #!/bin/dash
 
-# Include variables from lpi2.sh
-. lpi2.sh
-
 ### FUNCTIONS ###
 
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
