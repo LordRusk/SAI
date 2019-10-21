@@ -7,7 +7,7 @@ error() { printf "Something went wrong, maybe it was the script, maybe it was yo
 nxt() { echo "Next" | slmenu -p "Continue?"; }
 
 xit() {
-hutxon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
+xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "continue" ]; then
 		echo "epic"
 	elif [ "$xom" = "exit" ]; then
@@ -16,6 +16,10 @@ hutxon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 		done
 
 	fi
+}
+
+prescript() {
+	ln -sfT dash /usr/bin/sh
 }
 
 chosendrive() {
@@ -40,6 +44,7 @@ locale() {
 }
 
 bootmanager() {
+	clear
 	echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
 	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
@@ -56,6 +61,7 @@ bootmanager() {
 }
 
 getuserandpass() {
+	clear
 	echo "Next LPI is going to help you create your personal user, setup its password, and also set the root password"
 	name=$(echo "" | slmenu -p "Please enter the name of your new user")
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
@@ -126,6 +132,9 @@ wificonfig() {
 }
 
 ### THE ACTUAL SCRIPT ###
+
+# Link /usr/bin/sh to dash
+prescript
 
 # Re select the drive
 chosendrive
