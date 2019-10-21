@@ -91,7 +91,9 @@ install() {
 postinstall() {
 	genfstab /mnt >> /mnt/etc/fstab
 
-	# All configuring and scripts must be ran in a seperate script to function in chroot
+	export "$cdrive"
+	export "$bs"
+
 	cp lpi3.sh /mnt
 	arch-chroot /mnt dash /lpi3.sh
 }

@@ -1,5 +1,8 @@
 #!/bin/dash
 
+# Include variables from lpi2.sh
+. lpi2.sh
+
 ### FUNCTIONS ###
 
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
@@ -16,13 +19,6 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 		done
 
 	fi
-}
-
-chosendrive() {
-	clear
-	echo "Please re-select the drive you installed arch on"
-	sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
-	cdrive=$(echo "$sdrive" | awk '{print $1}')
 }
 
 locale() {
