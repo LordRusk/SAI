@@ -2,7 +2,7 @@
 
 ### FUNCTIONS ###
 
-error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit;}
+error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
 
 nxt() { echo "Next" | slmenu -p "Continue?"; }
 
@@ -12,7 +12,7 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 		echo "epic"
 	elif [ "$xom" = "exit" ]; then
 		while [ "$xom" = "$xom" ]; do
-			exit
+			error
 		done
 
 	fi
@@ -134,23 +134,23 @@ wificonfig() {
 ### THE ACTUAL SCRIPT ###
 
 # Link /usr/bin/sh to dash
-prescript
+prescript || error "User Exited."
 
 # Re select the drive
-chosendrive
+chosendrive || error "User Exited."
 
 # Generate the locale and get local time configured
-locale
+locale || error "User Exited."
 
 # Ask if grub should be installed or if they want to install something else
-bootmanager
+bootmanager || error "User Exited."
 
 # Get username and password for the new user, get the root password, set the root passwor, and make the new account
-getuserandpass
-adduserandpass
+getuserandpass || error "User Exited."
+adduserandpass || error "User Exited."
 
 # Ask if they would like to edit /etc/sudoers file
-sudoers
+sudoers || error "User Exited."
 
 # Ask if they would like to enable networkmanager
-wificonfig
+wificonfig || error "User Exited."
