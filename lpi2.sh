@@ -4,7 +4,7 @@
 
 error() { printf "Spomething went wrong, maybe it was you, maybe it was the script, who knows"; exit; }
 
-nxt() { echo "Next" | slmenu; }
+nxt() { echo "Next" | slmenu -p "Continue?"; }
 
 xit() {
 	xon=$(echo "Continue\nExit" | slmenu -i -p "$xprompt")
@@ -75,11 +75,12 @@ fancypac() {
 }
 
 install() {
+	clear
 	echo "It's time to actually install arch, ready?"
 	xprompt="Ready?"
 	nxt
 
-	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools networkmanager nm-connection-editor network-manager-applet modemmanager usb_modeswitchnd-provider-info usb_modeswitch wireless_tools wpa_supplicant grub slmenu git neovim vifm pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
+	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools networkmanager nm-connection-editor network-manager-applet modemmanagr wireless_tools wpa_supplicant grub slmenu git neovim vifm pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 }
 
 postinstall() {
