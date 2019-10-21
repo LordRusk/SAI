@@ -97,5 +97,5 @@ mirrorlist || error "User Exited."
 # The actual install
 install || error "User Exited."
 
-# Finish up
+# Launch lpi3.sh, then delete the files from /mnt after
 postinstall || error "User Exited."
