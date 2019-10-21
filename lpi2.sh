@@ -91,7 +91,7 @@ postinstall() {
 
 	# All configuring and scripts must be ran in a seperate script to function in chroot
 	cp lpi3.sh /mnt
-	arch-chroot /mnt sh /lpi3.sh
+	arch-chroot /mnt dash /lpi3.sh
 }
 
 
