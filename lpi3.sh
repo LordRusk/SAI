@@ -18,10 +18,6 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	fi
 }
 
-prescript() {
-	ln -sfT dash /usr/bin/sh
-}
-
 chosendrive() {
 	clear
 	echo "Please re-select the drive you installed arch on"
