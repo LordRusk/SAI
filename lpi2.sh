@@ -64,18 +64,6 @@ mirrorlist() {
 	nvim /etc/pacman.d/mirrorlist
 }
 
-fancypac() {
-	clear
-	echo "Would you like pacman to look nice while installing?"
-	fp=$(echo "Yes\\nNo" | slmenu -i -p "Would you?")
-	if [ "$fp" = "Yes" ]; then
-		grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color/Color/" /etc/pacman.conf
-		grep "ILoveCandy" /etc/pacman.conf >/dev/null || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
-	else
-		echo "ok"
-	fi
-}
-
 install() {
 	clear
 	echo "It's time to actually install arch, ready?"
@@ -105,9 +93,6 @@ formatdrive || error "User Exited."
 
 # Edit the mirrorlist for faster downloads
 mirrorlist || error "User Exited."
-
-# make pacman and yay look good
-fancypac || error "User Exited."
 
 # The actual install
 install || error "User Exited."
