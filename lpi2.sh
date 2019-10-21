@@ -56,6 +56,7 @@ formatdrive() {
 }
 
 mirrorlist() {
+	clear
 	echo "The defualt arch mirrorlist can be slow and unreliable, please edit the mirrorlist for faster speeds."
 	nxt
 	nvim /etc/pacman.d/mirrorlist
@@ -78,7 +79,7 @@ install() {
 	xprompt="Ready?"
 	nxt
 
-	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools networkmanager nm-connection-editor network-manager-applet modemmanager mobile-broadbamodemmanager mobile-broadband-provider-info usb_modeswitchnd-provider-info usb_modeswitch wireless_tools wpa_supplicant grub dialog git vim ranger pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
+	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools networkmanager nm-connection-editor network-manager-applet modemmanager usb_modeswitchnd-provider-info usb_modeswitch wireless_tools wpa_supplicant grub slmenu git neovim vifm pulseaudio pulseaudio-alsa alsa alsa-utils pavucontrol xorg-server xorg-xinit xclip xorg-xbacklight xcompmgr xwallpaper sxiv mpv unrar unzip zathura zathura-djvu zathura-pdf-mupdf noto-fonts noto-fonts-emoji
 }
 
 postinstall() {
