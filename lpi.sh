@@ -8,10 +8,10 @@ cd ../
 git clone https://www.github.com/LordRusk/rskrepo
 cd rskrepo
 cp pacman.conf /etc/pacman.conf
+cd ../LPI
 
 # Install needed script packages
 pacman --noconfirm -Sy dash neovim slmenu gawk grep
 
 # Launch the real script
-cd ../LPI
 dash lpi2.sh
