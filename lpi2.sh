@@ -98,6 +98,18 @@ postinstall() {
 
 	cp lpi3.sh /mnt
 	arch-chroot /mnt dash /lpi3.sh
+
+	rm /mnt/lpi3.sh
+	rm /mnt/temp
+
+	clear
+	echo "As long as there were no hidden errors, you should be able to reboot and boot into your new install."
+	rb=$(echo "Reboot\nDon't Reboot" | slmenu -p "Would you like to reboot now?")
+	if [ "$rb" = "Reboot" ]; then
+		reboot
+	else
+		clear
+	fi
 }
 
 
