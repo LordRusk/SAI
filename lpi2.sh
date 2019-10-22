@@ -21,7 +21,7 @@ welcome() {
 	clear
 	echo "Welcome to LPI (lazy Pre Install)"
 	echo "This script is to help you get arch installed by doing the hard stuff for you"
-	echo "and let the rest be up to you, ready to continue?"
+	echo "and leave the rest be up to you, ready to continue?"
 	xprompt="Continue?"
 	xit
 }
@@ -41,8 +41,8 @@ formatdrive() {
 	rps=$(echo "30gb" | slmenu -i -p "Size of root partition")
 
 	clear
-	echo "How big do you want your swap partition? Defualt is 10gb"
-	sps=$(echo "10gb" | slmenu -i -p "Size of swap partition")
+	echo "How big do you want your swap partition? Defualt is 1.5x your ram"
+	sps=$(echo "" | slmenu -i -p "Size of swap partition")
 
 	clear
 	echo "If you continue, the selected drive will be wiped, all data will be lost, do you want to continue?"
