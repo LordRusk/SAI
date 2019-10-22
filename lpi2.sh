@@ -93,7 +93,6 @@ postinstall() {
 
 	export "$cdrive"
 	export "$bs"
-	. /lpi3.sh
 
 	cp lpi3.sh /mnt
 	arch-chroot /mnt dash /lpi3.sh
