@@ -46,11 +46,12 @@ bootmanager() {
 	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
-		mkdir /boot/efi
-		mount "$cdrive"1 /boot/efi
-		grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
-		mkdir /boot/grub/locale
-		cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+		if [ "$bs" = "non EFI" ]; then
+			grub-install "$cdrive"
+		elif [ "$bs" = "EFI" ]; then
+			grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
+		fi
+		mkinitcpio -p grub
 		grub-mkconfig -o /boot/grub/grub.cfg
 	elif [ "$grb" = "Skip" ]; then
 		echo "ok"
@@ -140,7 +141,7 @@ chosendrive || error "User Exited."
 locale || error "User Exited."
 
 # Ask if grub should be installed or if they want to install something else
-bootmanager || error "User Exited."
+bootmanager
 
 # Get username and password for the new user, get the root password, set the root passwor, and make the new account
 getuserandpass || error "User Exited."

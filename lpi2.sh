@@ -41,30 +41,37 @@ formatdrive() {
 	rps=$(echo "30gb" | slmenu -i -p "Size of root partition")
 
 	clear
+	echo "How big do you want your swap partition? Defualt is 10gb"
+	sps=$(echo "10gb" | slmenu -i -p "Size of swap partition")
+
+	clear
 	echo "If you continue, the selected drive will be wiped, all data will be lost, do you want to continue?"
 	xprompt="Are you sure you want to continue?"
 	xit
 
-	if [ "$bs" = "non EFI" ]; then
-		dd if=/dev/zero of="$cdrive" bs=512 count=1
-		echo -e "m\nn\np\n1\n\n+"$rps"\nn\np\n2\n\n\nw" | fdisk "$cdrive"
+	dd if=/dev/zero of="$cdrive"  bs=512  count=1
+	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$sps"\nn\np\n3\n\n+"$rps"\nn\np\n4\n\n\nw" | fdisk "$cdrive"
 
-		mkfs.ext4 "$cdrive"1
-		mkfs.ext4 "$cdrive"2
-		mount "$cdrive"1 /mnt
-		mkdir /mnt/home
-		mount "$cdrive"2 /mnt/home
-	elif [ "$bs" = "EFI" ]; then
-		dd if=/dev/zero of="$cdrive"  bs=512  count=1
-		echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n\nw" | fdisk "$cdrive"
-
+	if [ "$bs" = "EFI" ]; then
 		mkfs.fat -F32 "$cdrive"1
-		mkfs.ext4 "$cdrive"2
-		mkfs.ext4 "$cdrive"3
-		mount "$cdrive"2 /mnt
-		mkdir /mnt/home
-		mount "$cdrive"3 /mnt/home
+	else
+		mkfs.ext4 "$cdrive"1
 	fi
+	mkfs.ext4 "$cdrive"3
+	mkfs.ext4 "$cdrive"4
+	mount "$cdrive"3 /mnt
+	mkdir /mnt/home
+	mount "$cdrive"4 /mnt/home
+	mkdir /mnt/boot
+	if [ "$bs" = "EFI" ]; then
+		mkdir /mnt/boot/efi
+		mount "$cdrive"1 /mnt/boot/efi
+	else
+		mount "$cdrive"1 /mnt/boot
+	fi
+
+	mkswap "$cdrive"2
+	swapon "$cdrive"2
 }
 
 mirrorlist() {
@@ -85,7 +92,7 @@ install() {
 }
 
 postinstall() {
-	genfstab /mnt >> /mnt/etc/fstab
+	genfstab -U /mnt >> /mnt/etc/fstab
 
 	echo "$cdrive\n$bs" > /mnt/temp
 
