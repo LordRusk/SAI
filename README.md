@@ -15,6 +15,6 @@ Thats it, you are on your way to the laziest Arch install of your life.
 
 # Notes\\ToDo
   - LPI currently supports EFI and non EFI bios, optional user creation, `sudoers` editing, and enabling NetworkManager.
-  - LPI since slmenu isn't in the defualt or enableable repos, I download my [personal repo](https://www.github.com/LordRusk/rskrepo) and copy a custom pacman.conf file with the repo enabled. Currently slmenu is the only package hosted, but as I need more aur/git packages, I will add more.
+  - LPI since slmenu isn't in the defualt or enableable repos, I download my [personal repo](https://www.github.com/LordRusk/rskrepo) and copy a custom pacman.conf file to `/etc/pacman.conf` with the repo enabled. Currently slmenu is the only package hosted, but as I need more aur/git packages, I will add more.
   - I need to add a package file, so it's easier to remove packages or add packages to the install, though aur and git won't be supported, it will be supported in my auto ricing script when I do make it.
   - LPI Has been fully moved to slmenu, the old dialog supported LPI can be here [here](https://www.github.com/LordRusk/old_LPI), Though it will not be supported.
