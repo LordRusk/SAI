@@ -25,6 +25,7 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 locale() {
 	clear
 	echo "Next we are going to be configuing your locale. First please enter your Region/City in that format"
+	echo "Example: Pacific time would be America/Los_Angeles"
 	rc=$(echo "Region/City" | slmenu -p "Region/City")
 	ln -sf /usr/share/zoneinfo/"$rc" /etc/localtime
 	hwclock --systohc
@@ -126,9 +127,6 @@ wificonfig() {
 }
 
 ### THE ACTUAL SCRIPT ###
-
-# Re select the drive
-chosendrive || error "User Exited."
 
 # Generate the locale and get local time configured
 locale || error "User Exited."
