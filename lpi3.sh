@@ -1,5 +1,13 @@
 #!/bin/dash
 
+# Define lpi2.sh variables
+cdrive=$(cat temp | grep /dev)
+bs=$(cat temp | grep EFI)
+
+
+echo "$cdrive"
+echo "$bs"
+
 ### FUNCTIONS ###
 
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
@@ -39,7 +47,7 @@ bootmanager() {
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
 		mkdir /boot/efi
-		mount "$cddrive"1 /boot/efi
+		mount "$cdrive"1 /boot/efi
 		grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
 		mkdir /boot/grub/locale
 		cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo

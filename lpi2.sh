@@ -41,17 +41,13 @@ formatdrive() {
 	rps=$(echo "30gb" | slmenu -i -p "Size of root partition")
 
 	clear
-	echo "You may want to change the size of your home partition if you are planning on duel booting, if not leave blank"
-	hps=$(echo "" | slmenu -i -p "Home Partition Size")
-
-	clear
 	echo "If you continue, the selected drive will be wiped, all data will be lost, do you want to continue?"
 	xprompt="Are you sure you want to continue?"
 	xit
 
 	if [ "$bs" = "non EFI" ]; then
 		dd if=/dev/zero of="$cdrive" bs=512 count=1
-		echo -e "m\nn\np\n1\n\n+"$rps"\nn\np\n2\n\n+"$hps"\nw" | fdisk "$cdrive"
+		echo -e "m\nn\np\n1\n\n+"$rps"\nn\np\n2\n\n\nw" | fdisk "$cdrive"
 
 		mkfs.ext4 "$cdrive"1
 		mkfs.ext4 "$cdrive"2
@@ -60,7 +56,7 @@ formatdrive() {
 		mount "$cdrive"2 /mnt/home
 	elif [ "$bs" = "EFI" ]; then
 		dd if=/dev/zero of="$cdrive"  bs=512  count=1
-		echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n"$hps"\nw" | fdisk "$cdrive"
+		echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$rps"\nn\np\n3\n\n\nw" | fdisk "$cdrive"
 
 		mkfs.fat -F32 "$cdrive"1
 		mkfs.ext4 "$cdrive"2
@@ -91,8 +87,7 @@ install() {
 postinstall() {
 	genfstab /mnt >> /mnt/etc/fstab
 
-	export "$cdrive"
-	export "$bs"
+	echo "$cdrive\n$bs" > /mnt/temp
 
 	cp lpi3.sh /mnt
 	arch-chroot /mnt dash /lpi3.sh
