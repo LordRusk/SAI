@@ -57,51 +57,61 @@ bootmanager() {
 
 getuserandpass() {
 	clear
-	echo "Next LPI is going to help you create your personal user, setup its password, and also set the root password"
-	name=$(echo "" | slmenu -p "Please enter the name of your new user")
-	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
-		clear
-		echo "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _."
-		name=$(echo "" | slmenu -p "Please type a valid username")
-	done
-	clear
-	pass1=$(echo "" | slmenu -p "Enter a password for the user")
-	clear
-	pass2=$(echo "" | slmenu -p "Retype Password")
-	while ! [ "$pass1" = "$pass2" ]; do
-		unset pass2
-		clear
-		echo "Passwords do not match. Enter password again."
-		pass1=$(echo "" | slmenu -p "Enter a password")
-		clear
-		pass2=$(echo "" | slmenu -p "Retype password")
-	done ;
+	echo "Would you like to create a user?"
+	cu=$(echo "Create User\nSkip" | slmenu -p "Create User?")
+	if [ "$cu" = "Create User" ]; then
 
-	clear
-	echo "Last, we need to set the root password, just incase anything goes wrong with your main account"
-	rpass1=$(echo "" | slmenu -p "Enter a root password")
-	clear
-	rpass2=$(echo "" | slmenu -p "Retype password")
-	while ! [ "$rpass1" = "$rpass2" ]; do
-		unset pass2
+		name=$(echo "" | slmenu -p "Please enter the name of your new user")
+		while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
+			clear
+			echo "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _."
+			name=$(echo "" | slmenu -p "Please type a valid username")
+		done
 		clear
-		echo "Passwords do not match. Enter password again."
-		rpass1=$(echo "" | slmenu -p "Enter a password")
+		pass1=$(echo "" | slmenu -p "Enter a password for the user")
 		clear
-		rpass2=$(echo "" | slmenu -p "Retype password")
+		pass2=$(echo "" | slmenu -p "Retype Password")
+		while ! [ "$pass1" = "$pass2" ]; do
+			unset pass2
+			clear
+			echo "Passwords do not match. Enter password again."
+			pass1=$(echo "" | slmenu -p "Enter a password")
+			clear
+			pass2=$(echo "" | slmenu -p "Retype password")
+		done ;
+	else
+		clear
+		echo "Would you like to set a root password"
+		srp=$(echo "Set Root Password\nSkip" | slmenu -p "Set Root Password?")
+		if [ "$srp" = "Set Root Password" ]; then
+			clear
+			rpass1=$(echo "" | slmenu -p "Enter a root password")
+			clear
+			rpass2=$(echo "" | slmenu -p "Retype password")
+			while ! [ "$rpass1" = "$rpass2" ]; do
+				unset pass2
+				clear
+				echo "Passwords do not match. Enter password again."
+				rpass1=$(echo "" | slmenu -p "Enter a password")
+				clear
+				rpass2=$(echo "" | slmenu -p "Retype password")
+			done ;
+		fi
+	fi
 
-	done ;
 }
 
 adduserandpass() {
-	clear
-	echo "Adding user and setting root password"
-	useradd -m -g wheel "$name"
-	echo "$name:$pass1" | chpasswd
-	unset pass1 pass2 ;
-
-	echo "root:$rpass1" | chpasswd
-	unset rpass1 rpass2 ;
+	if [ "$cu" = "Create User" ]; then
+		clear
+		echo "Adding user and setting root password"
+		useradd -m -g wheel "$name"
+		echo "$name:$pass1" | chpasswd
+		unset pass1 pass2 ;
+	elif [ "$srp" = "Set Root Password" ]; then
+		echo "root:$rpass1" | chpasswd
+		unset rpass1 rpass2 ;
+	fi
 }
 
 sudoers() {
