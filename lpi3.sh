@@ -38,9 +38,6 @@ bootmanager() {
 	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
-		clear
-		if [ "$bs" = "non EFI" ]; then
-
 		mkdir /boot/efi
 		mount "$cddrive"1 /boot/efi
 		grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
