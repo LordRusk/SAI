@@ -51,7 +51,7 @@ formatdrive() {
 
 	if [ "$bs" = "non EFI" ]; then
 		dd if=/dev/zero of="$cdrive" bs=512 count=1
-		echo -e "m\nn\np\n1\n\n"$rps"\nn\np\n2\n\n"$hps"\nw" | fdisk "$cdrive"
+		echo -e "m\nn\np\n1\n\n+"$rps"\nn\np\n2\n\n+"$hps"\nw" | fdisk "$cdrive"
 
 		mkfs.ext4 "$cdrive"1
 		mkfs.ext4 "$cdrive"2
