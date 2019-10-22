@@ -4,10 +4,6 @@
 cdrive=$(cat temp | grep /dev)
 bs=$(cat temp | grep EFI)
 
-
-echo "$cdrive"
-echo "$bs"
-
 ### FUNCTIONS ###
 
 error() { printf "Something went wrong, maybe it was the script, maybe it was you, who knows."; exit; }
@@ -130,9 +126,6 @@ wificonfig() {
 }
 
 ### THE ACTUAL SCRIPT ###
-
-# Link /usr/bin/sh to dash
-prescript || error "User Exited."
 
 # Re select the drive
 chosendrive || error "User Exited."
