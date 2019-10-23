@@ -80,26 +80,23 @@ getuserandpass() {
 			clear
 			pass2=$(echo "" | slmenu -p "Retype password")
 		done ;
-	else
+	fi
+	clear
+	echo "Would you like to set a root password"
+	srp=$(echo "Set Root Password\nSkip" | slmenu -p "Set Root Password?")
+	if [ "$srp" = "Set Root Password" ]; then
 		clear
-		echo "Would you like to set a root password"
-		srp=$(echo "Set Root Password\nSkip" | slmenu -p "Set Root Password?")
-		if [ "$srp" = "Set Root Password" ]; then
+		rpass1=$(echo "" | slmenu -p "Enter a root password")
+		clear
+		rpass2=$(echo "" | slmenu -p "Retype password")
+		while ! [ "$rpass1" = "$rpass2" ]; do
+			unset pass2
 			clear
-			rpass1=$(echo "" | slmenu -p "Enter a root password")
+			echo "Passwords do not match. Enter password again."
+			rpass1=$(echo "" | slmenu -p "Enter a password")
 			clear
 			rpass2=$(echo "" | slmenu -p "Retype password")
-			while ! [ "$rpass1" = "$rpass2" ]; do
-				unset pass2
-				clear
-				echo "Passwords do not match. Enter password again."
-				rpass1=$(echo "" | slmenu -p "Enter a password")
-				clear
-				rpass2=$(echo "" | slmenu -p "Retype password")
-			done ;
-		else
-			echo ""
-		fi
+		done ;
 	fi
 
 }
