@@ -108,7 +108,9 @@ adduserandpass() {
 		useradd -m -g wheel "$name"
 		echo "$name:$pass1" | chpasswd
 		unset pass1 pass2 ;
-	elif [ "$srp" = "Set Root Password" ]; then
+	fi
+
+	if [ "$srp" = "Set Root Password" ]; then
 		echo "root:$rpass1" | chpasswd
 		unset rpass1 rpass2 ;
 	fi
