@@ -61,6 +61,7 @@ getuserandpass() {
 	cu=$(echo "Create User\nSkip" | slmenu -p "Create User?")
 	if [ "$cu" = "Create User" ]; then
 
+		clear
 		name=$(echo "" | slmenu -p "Please enter the name of your new user")
 		while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
 			clear
