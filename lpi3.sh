@@ -96,6 +96,8 @@ getuserandpass() {
 				clear
 				rpass2=$(echo "" | slmenu -p "Retype password")
 			done ;
+		else
+			echo ""
 		fi
 	fi
 
@@ -117,7 +119,7 @@ adduserandpass() {
 sudoers() {
 	clear
 	echo "Would you like to edit /etc/sudoers file? If so, your new user is in group wheel"
-	es=$(echo "Yes\\nNO" | slmenu -p "Edit /etc/sudoers?")
+	es=$(echo "Yes\\nNo" | slmenu -p "Edit /etc/sudoers?")
 	if [ "$es" = "Yes" ]; then
 		nvim /etc/sudoers
 	else
