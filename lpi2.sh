@@ -21,7 +21,7 @@ welcome() {
 	clear
 	echo "Welcome to LPI (lazy Pre Install)"
 	echo "This script is to help you get arch installed by doing the hard stuff for you"
-	echo "and leave the rest be up to you, ready to continue?"
+	echo "and leaves the rest up to you, ready to continue?"
 	xprompt="Continue?"
 	xit
 }
