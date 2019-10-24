@@ -88,7 +88,10 @@ install() {
 	nxt
 
 	clear
-	pacstrap /mnt linux linux-firmware base base-devel dosfstools exfat-utils efibootmgr os-prober mtools networkmanager wireless_tools wpa_supplicant grub slmenu dash git neovim vifm xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper sxiv mpv unrar terminus-font
+	pacstrap /mnt base linux linux-firmware base-devel exfat-utils efibootmgr os-prober networkmanager wireless_tools wpa_supplicant grub slmenu dash git neovim xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper terminus-font
+	
+	clear
+	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
 }
 
 postinstall() {
