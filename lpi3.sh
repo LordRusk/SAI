@@ -37,7 +37,7 @@ locale() {
 	locale-gen
 }
 
-bootmanager() {
+bootmanager() {\
 	clear
 	echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
 	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
@@ -50,8 +50,6 @@ bootmanager() {
 		fi
 		mkinitcpio -p grub
 		grub-mkconfig -o /boot/grub/grub.cfg
-	elif [ "$grb" = "Skip" ]; then
-		echo "ok"
 	fi
 }
 
@@ -60,7 +58,6 @@ getuserandpass() {
 	echo "Would you like to create a user?"
 	cu=$(echo "Create User\nSkip" | slmenu -p "Create User?")
 	if [ "$cu" = "Create User" ]; then
-
 		clear
 		name=$(echo "" | slmenu -p "Please enter the name of your new user")
 		while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
@@ -116,14 +113,21 @@ adduserandpass() {
 	fi
 }
 
+xorgpackages() {
+	clear
+	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
+	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?"
+	if [ "$xpack" = 'Install" ]; then
+		pacman -Sy xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper
+	fi
+}
+
 sudoers() {
 	clear
 	echo "Would you like to edit /etc/sudoers file? If so, your new user is in group wheel"
 	es=$(echo "Yes\\nNo" | slmenu -p "Edit /etc/sudoers?")
 	if [ "$es" = "Yes" ]; then
 		nvim /etc/sudoers
-	else
-		echo "ok"
 	fi
 }
 
@@ -133,8 +137,6 @@ wificonfig() {
 	en=$(echo "Yes\\nNo" | slmenu -p "Enable NetworkManger?")
 	if [ "$en" = "Yes" ]; then
 		systemctl enable NetworkManager.service
-	else
-		echo "ok"
 	fi
 }
 
