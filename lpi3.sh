@@ -136,6 +136,7 @@ wificonfig() {
 	echo "Would you like to enable NetworkManager?"
 	en=$(echo "Yes\\nNo" | slmenu -p "Enable NetworkManger?")
 	if [ "$en" = "Yes" ]; then
+		pacman -Syu networkmanager wireless_tools wpa_supplicant
 		systemctl enable NetworkManager.service
 	fi
 }
@@ -151,6 +152,9 @@ bootmanager
 # Get username and password for the new user, get the root password, set the root passwor, and make the new account
 getuserandpass || error "User Exited."
 adduserandpass || error "User Exited."
+
+# Ask if they would like to download xorg packages
+xorgpackages || error"User Exited."
 
 # Ask if they would like to edit /etc/sudoers file
 sudoers || error "User Exited."
