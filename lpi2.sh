@@ -88,7 +88,7 @@ install() {
 	nxt
 
 	clear
-	pacstrap /mnt base linux linux-firmware base-devel exfat-utils efibootmgr os-prober networkmanager wireless_tools wpa_supplicant grub slmenu dash git neovim terminus-font
+	pacstrap /mnt base linux linux-firmware base-devel os-prober grub slmenu dash git neovim terminus-font
 	
 	if [ "$bs" = "EFI" ]; then
 		pacstrap /mnt exfat-utils efibootmgr
