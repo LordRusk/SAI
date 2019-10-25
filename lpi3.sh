@@ -1,6 +1,6 @@
 #!/bin/dash
 
-# Define lpi2.sh variables
+# Fetch lpi2.sh variables
 cdrive=$(cat temp | grep /dev)
 bs=$(cat temp | grep EFI)
 
