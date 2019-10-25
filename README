@@ -1,0 +1,20 @@
+
+LPI
+---
+Lazy Pre Install: The lazy (best) way to install Arch.
+LPI is intended to make it easy to install arch, and do it efficently at that.
+
+
+How To
+------
+After you boot from an arch usb, run these commands:
+  pacman -Sy git
+  git clone https://www.github.com/LordRusk/LPI.git
+  cd LPI
+  sh lpi.sh
+LPI uses slmenu as it's very easy to work with, efficient, and suckless.
+
+
+Support
+-------
+LPI supports EFI and non EFI bios, optional user creation and setting of root password sudoers file editing, installation and enablation of NetworkManager, and installation of xorg-packages for easy wm installation.
