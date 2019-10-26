@@ -26,7 +26,7 @@ locale() {
 	rgs=$(cat /user/share/zoneinfo)
 	clear
 	echo "Please choose a region from this list"
-	rg=$(echo "$rgs" | slmenu -l 10 -p "Choose a region"
+	rg=$(echo "$rgs" | slmenu -l 10 -p "Choose a region")
 	cts=$(cat /usr/share/zoneinfo/"$rg")
 	clear
 	echo "Please choose a city that has the same time zone as yours."
