@@ -117,7 +117,7 @@ xorgpackages() {
 	clear
 	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
 	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?"
-	if [ "$xpack" = 'Install" ]; then
+	if [ "$xpack" = "Install" ]; then
 		pacman -Sy xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper
 	fi
 }
