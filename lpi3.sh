@@ -136,7 +136,7 @@ wificonfig() {
 	echo "Would you like to enable NetworkManager?"
 	en=$(echo "Yes\\nNo" | slmenu -p "Enable NetworkManger?")
 	if [ "$en" = "Yes" ]; then
-		pacman -Syu networkmanager wireless_tools wpa_supplicant
+		pacman --no-confirm -Syu networkmanager wireless_tools wpa_supplicant
 		systemctl enable NetworkManager.service
 	fi
 }
