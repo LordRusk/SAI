@@ -23,12 +23,16 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 }
 
 locale() {
+	rgs=$(cat /user/share/zoneinfo)
 	clear
-	echo "Next we are going to be configuing your locale. First please enter your Region/City in that format"
-	echo "Example: Pacific time would be America/Los_Angeles"
-	rc=$(echo "Region/City" | slmenu -p "Region/City")
-	ln -sf /usr/share/zoneinfo/"$rc" /etc/localtime
-	hwclock --systohc
+	echo "Please choose a region from this list"
+	rg=$(echo "$rgs" | slmenu -l 10 -p "Choose a region"
+	cts=$(cat /usr/share/zoneinfo/"$rg")
+	clear
+	echo "Please choose a city that has the same time zone as yours."
+	ct=$(echo "$cts" | slmenu -l 10 -p "Choose a city"
+	ln -sf /usr/share/zoneinfo/"$rg"/"$ct" /etc/localtime
+	hwclock --sync
 
 	clear
 	echo "Please uncoomment en_US.UTF-8 UTF-8 and other locals you may need"
