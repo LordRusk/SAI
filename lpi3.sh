@@ -23,7 +23,7 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 }
 
 locale() {
-	rgs=$(ls /user/share/zoneinfo)
+	rgs=$(ls /usr/share/zoneinfo)
 	clear
 	echo "Please choose a region from this list"
 	rg=$(echo "$rgs" | slmenu -l 10 -p "Choose a region")
