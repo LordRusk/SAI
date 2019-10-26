@@ -23,11 +23,11 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 }
 
 locale() {
-	rgs=$(cat /user/share/zoneinfo)
+	rgs=$(ls /user/share/zoneinfo)
 	clear
 	echo "Please choose a region from this list"
 	rg=$(echo "$rgs" | slmenu -l 10 -p "Choose a region")
-	cts=$(cat /usr/share/zoneinfo/"$rg")
+	cts=$(ls /usr/share/zoneinfo/"$rg")
 	clear
 	echo "Please choose a city that has the same time zone as yours."
 	ct=$(echo "$cts" | slmenu -l 10 -p "Choose a city")
