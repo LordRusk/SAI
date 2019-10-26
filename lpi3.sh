@@ -30,7 +30,7 @@ locale() {
 	cts=$(cat /usr/share/zoneinfo/"$rg")
 	clear
 	echo "Please choose a city that has the same time zone as yours."
-	ct=$(echo "$cts" | slmenu -l 10 -p "Choose a city"
+	ct=$(echo "$cts" | slmenu -l 10 -p "Choose a city")
 	ln -sf /usr/share/zoneinfo/"$rg"/"$ct" /etc/localtime
 	hwclock --sync
 
