@@ -57,7 +57,7 @@ bootmanager() {\
 	fi
 }
 
-getuserandpass() {
+getadduserroot() {
 	clear
 	echo "Would you like to create a user?"
 	cu=$(echo "Create User\nSkip" | slmenu -p "Create User?")
@@ -70,51 +70,17 @@ getuserandpass() {
 			name=$(echo "" | slmenu -p "Please type a valid username")
 		done
 		clear
-		pass1=$(echo "" | slmenu -p "Enter a password for the user")
-		clear
-		pass2=$(echo "" | slmenu -p "Retype Password")
-		while ! [ "$pass1" = "$pass2" ]; do
-			unset pass2
-			clear
-			echo "Passwords do not match. Enter password again."
-			pass1=$(echo "" | slmenu -p "Enter a password")
-			clear
-			pass2=$(echo "" | slmenu -p "Retype password")
-		done ;
+		echo "Please enter a password for the user"
+		passwd "name"
 	fi
 	clear
 	echo "Would you like to set a root password"
 	srp=$(echo "Set Root Password\nSkip" | slmenu -p "Set Root Password?")
 	if [ "$srp" = "Set Root Password" ]; then
 		clear
-		rpass1=$(echo "" | slmenu -p "Enter a root password")
-		clear
-		rpass2=$(echo "" | slmenu -p "Retype password")
-		while ! [ "$rpass1" = "$rpass2" ]; do
-			unset pass2
-			clear
-			echo "Passwords do not match. Enter password again."
-			rpass1=$(echo "" | slmenu -p "Enter a password")
-			clear
-			rpass2=$(echo "" | slmenu -p "Retype password")
-		done ;
+		passwd root
 	fi
 
-}
-
-adduserandpass() {
-	if [ "$cu" = "Create User" ]; then
-		clear
-		echo "Adding user and setting root password"
-		useradd -m -g wheel "$name"
-		echo "$name:$pass1" | chpasswd
-		unset pass1 pass2 ;
-	fi
-
-	if [ "$srp" = "Set Root Password" ]; then
-		echo "root:$rpass1" | chpasswd
-		unset rpass1 rpass2 ;
-	fi
 }
 
 xorgpackages() {
