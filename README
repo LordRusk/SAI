@@ -9,8 +9,7 @@ How To
 After you boot from an arch usb, run these commands:
   pacman -Sy git
   git clone https://www.github.com/LordRusk/LPI.git
-  cd LPI
-  sh lpi.sh
+  ./LPI/lpi.sh
 LPI uses slmenu because its efficient, suckless, and easy to work with.
 
 
