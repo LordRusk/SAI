@@ -43,48 +43,69 @@ formatdrive() {
 	clear
 	echo "Are are installing arch on an non EFI bios or an EFI bios."
 	bs=$(echo "non EFI\nEFI" | slmenu -p "non EFI or EFI")
-
+	
 	clear
-	echo "Please select the drive you would like to install arch on"
-	sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
-	cdrive=$(echo "$sdrive" | awk '{print $1}')
+	echo "Would you like to nuke the drive and install a completely fresh arch install, or configure your own partitions?"
+	auto=$(echo "Configure partitions\nNuke and auto reinstall" | slmenu -p "Configure the partitions or nuke and auto reinstall?"
+	if [ "$auto" = "Configue partitions" ]; then
+		clear
+		echo "Please configue your drive, then 'exit' the shell"
+		sh
+		
+		clear
+		echo "Please select the drive you configured"
+		sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
+		cdrive=$(echo "$sdrive" | awk '{print $1}')
+	
+		clear
+		echo "Please select the root partition for the reinstall"
+		ssdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a root partition")
+		ccdrive=$(echo "$sdrive" | awk '{print $1}')
+		
+		dd if=/dev/zero of="$ccdrive"  bs=512  count=1
+		echo -e "g\n\
+	elif [ "$auto" = "Nuke and auto reinstall" ]; then
+		clear
+		echo "Please select the drive you would like to install arch on"
+		sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
+		cdrive=$(echo "$sdrive" | awk '{print $1}')
 
-	clear
-	echo "How big do you want your root partition to be? Defualt is 30gb"
-	rps=$(echo "30gb" | slmenu -i -p "Size of root partition")
+		clear
+		echo "How big do you want your root partition to be? Defualt is 30gb"
+		rps=$(echo "30gb" | slmenu -i -p "Size of root partition")
 
-	clear
-	echo "How big do you want your swap partition? Defualt is 1.5x your ram"
-	sps=$(echo "" | slmenu -i -p "Size of swap partition")
+		clear
+		echo "How big do you want your swap partition? Defualt is 1.5x your ram"
+		sps=$(echo "" | slmenu -i -p "Size of swap partition")
 
-	clear
-	echo "If you continue, the selected drive will be wiped, all data will be lost, do you want to continue?"
-	xprompt="Are you sure you want to continue?"
-	xit
+		clear
+		echo "If you continue, the selected drive will be wiped, all data will be lost, do you want to continue?"
+		xprompt="Are you sure you want to continue?"
+		xit
 
-	dd if=/dev/zero of="$cdrive"  bs=512  count=1
-	echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$sps"\nn\np\n3\n\n+"$rps"\nn\np\n4\n\n\nw" | fdisk "$cdrive"
+		dd if=/dev/zero of="$cdrive"  bs=512  count=1
+		echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$sps"\nn\np\n3\n\n+"$rps"\nn\np\n4\n\n\nw" | fdisk "$cdrive"
 
-	if [ "$bs" = "EFI" ]; then
-		mkfs.fat -F32 "$cdrive"1
-	else
-		mkfs.ext4 "$cdrive"1
-	fi
-	mkfs.ext4 "$cdrive"3
-	mkfs.ext4 "$cdrive"4
-	mount "$cdrive"3 /mnt
-	mkdir /mnt/home
-	mount "$cdrive"4 /mnt/home
-	mkdir /mnt/boot
-	if [ "$bs" = "EFI" ]; then
-		mkdir /mnt/boot/efi
-		mount "$cdrive"1 /mnt/boot/efi
-	else
-		mount "$cdrive"1 /mnt/boot
-	fi
+		if [ "$bs" = "EFI" ]; then
+			mkfs.fat -F32 "$cdrive"1
+		else
+			mkfs.ext4 "$cdrive"1
+		fi
+		mkfs.ext4 "$cdrive"3
+		mkfs.ext4 "$cdrive"4
+		mount "$cdrive"3 /mnt
+		mkdir /mnt/home
+		mount "$cdrive"4 /mnt/home
+		mkdir /mnt/boot
+		if [ "$bs" = "EFI" ]; then
+			mkdir /mnt/boot/efi
+			mount "$cdrive"1 /mnt/boot/efi
+		else	
+			mount "$cdrive"1 /mnt/boot
+		fi
 
-	mkswap "$cdrive"2
-	swapon "$cdrive"2
+		mkswap "$cdrive"2
+		swapon "$cdrive"2
 }
 
 mirrorlist() {
