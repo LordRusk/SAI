@@ -49,7 +49,8 @@ formatdrive() {
 	auto=$(echo "Configure partitions\nNuke and auto reinstall" | slmenu -p "Configure the partitions or nuke and auto reinstall?"
 	if [ "$auto" = "Configue partitions" ]; then
 		clear
-		echo "Please configue your drive, then 'exit' the shell"
+		echo "Please delete, format, mount and anything else you need to do to the root partition, then 'exit' the shell"
+		echo "Note! LPI will assume the root partition is mounted at /mnt"
 		sh
 		
 		clear
@@ -61,9 +62,6 @@ formatdrive() {
 		echo "Please select the root partition for the reinstall"
 		ssdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a root partition")
 		ccdrive=$(echo "$sdrive" | awk '{print $1}')
-		
-		dd if=/dev/zero of="$ccdrive"  bs=512  count=1
-		echo -e "g\n\
 	elif [ "$auto" = "Nuke and auto reinstall" ]; then
 		clear
 		echo "Please select the drive you would like to install arch on"
