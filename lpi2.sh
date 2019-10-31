@@ -13,8 +13,21 @@ xit() {
 	elif [ "$xom" = "exit" ]; then
 		while [ "$xom" = "$zom" ]; do
 			exit
+			exit
 		done
 	fi
+}
+
+preinstall() {
+	# Make sure git is installed to download custom repo
+	pacman --needed --noconfirm -Sy git
+
+	# Download custom repo
+	git clone https://www.github.com/LordRusk/rskrepo ~/
+	echo "\n[rskrepo]\nSigLevel = Optional TrustAll\nServer = file:///root/rskrepo/$arch" > /etc/pacman.conf
+
+	# Install needed script packages
+	pacman --noconfirm --needed -Sy dash neovim slmenu gawk grep
 }
 
 welcome() {
@@ -119,17 +132,20 @@ postinstall() {
 
 ### THE ACTUAL SCRIPT ###
 
+# Get everything setup for the script
+prescript || error
+
 # Welcome the user
-welcome || error "User Exited."
+welcome || error
 
 # Everything that must be done to the drives
-formatdrive || error "User Exited."
+formatdrive || error
 
 # Edit the mirrorlist for faster downloads
-mirrorlist || error "User Exited."
+mirrorlist || error
 
 # The actual install
-install || error "User Exited."
+install || error
 
 # Launch lpi3.sh, then delete the files from /mnt after
-postinstall || error "User Exited."
+postinstall || error
