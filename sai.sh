@@ -132,10 +132,10 @@ postinstall() {
 
 	echo "$cdrive\n$bs\n$auto" > /mnt/temp
 
-	cp lpi3.sh /mnt
-	arch-chroot /mnt dash /lpi3.sh
+	cp sai2.sh /mnt
+	arch-chroot /mnt dash /sai2.sh
 
-	rm /mnt/lpi3.sh
+	rm /mnt/sai2.sh
 	rm /mnt/temp
 
 	clear
