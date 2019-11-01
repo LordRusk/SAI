@@ -3,6 +3,7 @@
 # Fetch lpi2.sh variables
 cdrive=$(cat temp | grep /dev)
 bs=$(cat temp | grep EFI)
+auto=$(cat temp | sed -n '3')
 
 ### FUNCTIONS ###
 
@@ -41,19 +42,37 @@ locale() {
 	locale-gen
 }
 
-bootmanager() {\
-	clear
-	echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
-	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
-	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
-	if [ "$grb" = "Install Grub" ]; then
-		if [ "$bs" = "non EFI" ]; then
-			grub-install "$cdrive"
-		elif [ "$bs" = "EFI" ]; then
-			grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
+bootmanager() {
+	if [ "$auto" = "Configue partitions" ]; then
+		clear
+		echo "LPI automatically installs GRUB as it's boot manager, would you like to continue with this or skip?"
+		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
+		if [ "$grb" = "Install Grub" ]; then
+			clear
+			echo "Please select the boot partition to install grub on"
+			gsdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a partition")
+			gcdrive=$(echo "$gsdrive" | awk '{print $1}')
+			if [ "$bs" = "non EFI" ]; then
+				grub-install "$cdrive"
+			elif [ "$bs" = "EFI" ]; then
+				grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
+			fi
+			mkinitcpio -p grub
+			grub-mkconfig -o /boot/grub/grub.cfg
+	if [ "$auto" = "Nuke and auto reinstall" ]; then
+		clear
+		echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
+		echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
+		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
+		if [ "$grb" = "Install Grub" ]; then
+			if [ "$bs" = "non EFI" ]; then
+				grub-install "$cdrive"
+			elif [ "$bs" = "EFI" ]; then
+				grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
+			fi
+			mkinitcpio -p grub
+			grub-mkconfig -o /boot/grub/grub.cfg
 		fi
-		mkinitcpio -p grub
-		grub-mkconfig -o /boot/grub/grub.cfg
 	fi
 }
 
