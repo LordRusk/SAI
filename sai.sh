@@ -32,16 +32,15 @@ preinstall() {
 
 welcome() {
 	clear
-	echo "Welcome to LPI (lazy Pre Install)"
-	echo "This script is to help you get arch installed by doing the hard stuff for you"
-	echo "and leaves the rest up to you, ready to continue?"
+	echo "Welcome to SAI (Simple Automatic Install)"
+	echo "This script is to help you get arch installed fast, efficently, and meet any needs you may have."
 	xprompt="Continue?"
 	xit
 }
 
 formatdrive() {
 	clear
-	echo "Are are installing arch on an non EFI bios or an EFI bios."
+	echo "Are are installing arch on a non EFI bios or a EFI bios."
 	bs=$(echo "non EFI\nEFI" | slmenu -p "non EFI or EFI")
 	
 	clear
@@ -50,18 +49,10 @@ formatdrive() {
 	if [ "$auto" = "Configue partitions" ]; then
 		clear
 		echo "Please delete, format, mount and anything else you need to do to the root partition, then 'exit' the shell"
-		echo "Note! LPI will assume the root partition is mounted at /mnt"
+		echo "Note! The root partition should be mounted at /mnt"
+		echo "If you choise non EFI bios, the boot partition should be mounted at /mnt/boot/"
+		echo "If you choise EFI bios,, the boot partition should be mounted at /mnt/boot/efi"
 		sh
-		
-		clear
-		echo "Please select the drive you configured"
-		sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
-		cdrive=$(echo "$sdrive" | awk '{print $1}')
-	
-		clear
-		echo "Please select the root partition for the reinstall"
-		ssdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a partition")
-		ccdrive=$(echo "$ssdrive" | awk '{print $1}')
 	elif [ "$auto" = "Nuke and auto reinstall" ]; then
 		clear
 		echo "Please select the drive you would like to install arch on"
@@ -101,7 +92,6 @@ formatdrive() {
 		else	
 			mount "$cdrive"1 /mnt/boot
 		fi
-
 		mkswap "$cdrive"2
 		swapon "$cdrive"2
 }
@@ -143,8 +133,6 @@ postinstall() {
 	rb=$(echo "Reboot\nDon't Reboot" | slmenu -p "Would you like to reboot now?")
 	if [ "$rb" = "Reboot" ]; then
 		reboot
-	else
-		clear
 	fi
 }
 
