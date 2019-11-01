@@ -1,21 +1,21 @@
 ╔═════════════════════════════════╗
-║LPI IS BEING UPDATED AND IS BROKE║
+║SAI IS BEING UPDATED AND IS BROKE║
 ╚═════════════════════════════════╝
 
-LPI - Lazy Pre Install
-======================
-LPI is The lazy (best) way to install Arch. It is intended to make it easy to install arch, and do it efficently at that.
+SAI - Simple Automatic Install
+==============================
+SAI is the simple way to get a minimal Arch install. It is intended to make it easy to install and configure arch, and do it efficently at that.
 
 
 How To
 ------
 After you boot from an arch usb, run these commands:
   pacman -Sy git
-  git clone https://www.github.com/LordRusk/LPI.git
-  ./LPI/lpi.sh
+  git clone https://www.github.com/LordRusk/SAI.git
+  ./SAI/sai.sh
 LPI uses slmenu and dash because its efficient, suckless, and easy to work with.
 
 
 Support
 -------
-LPI supports EFI and non EFI bios, optional user creation and setting of root password sudoers file editing, installation and enablation of NetworkManager, and installation of xorg-packages for easy wm installation.
+SAI supports EFI and non EFI bios, optional self frive configuring or nuking the drive and installing from the ground up, user creation and setting of root password, sudoers file editing, installation and enablation of NetworkManager, and installation of xorg-packages for easy wm installation.
