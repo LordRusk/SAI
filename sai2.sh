@@ -1,6 +1,6 @@
 #!/bin/dash
 
-# Fetch lpi2.sh variables
+# Fetch sai.sh variables
 cdrive=$(cat temp | grep /dev)
 bs=$(cat temp | grep EFI)
 auto=$(cat temp | sed -n '3')
@@ -36,7 +36,7 @@ locale() {
 	hwclock --sync
 
 	clear
-	echo "Please uncoomment en_US.UTF-8 UTF-8 and other locals you may need"
+	echo "Please uncoomment 'en_US.UTF-8 UTF-8' and other locals you may need"
 	nxt
 	nvim /etc/locale.gen
 	locale-gen
@@ -45,7 +45,7 @@ locale() {
 bootmanager() {
 	if [ "$auto" = "Configue partitions" ]; then
 		clear
-		echo "LPI automatically installs GRUB as it's boot manager, would you like to continue with this or skip?"
+		echo "SAI automatically installs GRUB as it's boot manager, would you like to continue with this or skip?"
 		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 		if [ "$grb" = "Install Grub" ]; then
 			clear
@@ -59,9 +59,9 @@ bootmanager() {
 			fi
 			mkinitcpio -p grub
 			grub-mkconfig -o /boot/grub/grub.cfg
-	if [ "$auto" = "Nuke and auto reinstall" ]; then
+	elif [ "$auto" = "Nuke and auto reinstall" ]; then
 		clear
-		echo "LPI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
+		echo "SAI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
 		echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
 		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 		if [ "$grb" = "Install Grub" ]; then
@@ -102,15 +102,6 @@ getadduserroot() {
 
 }
 
-xorgpackages() {
-	clear
-	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
-	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?")
-	if [ "$xpack" = "Install" ]; then
-		pacman --noconfirm -Sy xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper
-	fi
-}
-
 sudoers() {
 	clear
 	echo "Would you like to edit /etc/sudoers file? If so, your new user is in group wheel"
@@ -130,6 +121,15 @@ wificonfig() {
 	fi
 }
 
+xorgpackages() {
+	clear
+	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
+	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?")
+	if [ "$xpack" = "Install" ]; then
+		pacman --noconfirm -Sy xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper
+	fi
+}
+
 ### THE ACTUAL SCRIPT ###
 
 # Generate the locale and get local time configured
@@ -142,11 +142,11 @@ bootmanager
 getuserandpass || error "User Exited."
 adduserandpass || error "User Exited."
 
-# Ask if they would like to download xorg packages
-xorgpackages || error"User Exited."
-
 # Ask if they would like to edit /etc/sudoers file
 sudoers || error "User Exited."
 
 # Ask if they would like to enable networkmanager
 wificonfig || error "User Exited."
+
+# Ask if they would like to download xorg packages
+xorgpackages || error"User Exited."
