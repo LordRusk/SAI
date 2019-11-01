@@ -60,8 +60,8 @@ formatdrive() {
 	
 		clear
 		echo "Please select the root partition for the reinstall"
-		ssdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a root partition")
-		ccdrive=$(echo "$sdrive" | awk '{print $1}')
+		ssdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a partition")
+		ccdrive=$(echo "$ssdrive" | awk '{print $1}')
 	elif [ "$auto" = "Nuke and auto reinstall" ]; then
 		clear
 		echo "Please select the drive you would like to install arch on"
