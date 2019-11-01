@@ -130,7 +130,7 @@ install() {
 postinstall() {
 	genfstab -U /mnt >> /mnt/etc/fstab
 
-	echo "$cdrive\n$bs" > /mnt/temp
+	echo "$cdrive\n$bs\n$auto" > /mnt/temp
 
 	cp lpi3.sh /mnt
 	arch-chroot /mnt dash /lpi3.sh
