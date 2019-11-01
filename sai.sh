@@ -24,7 +24,7 @@ preinstall() {
 
 	# Download custom repo
 	git clone https://www.github.com/LordRusk/rskrepo ~/
-	echo "\n[rskrepo]\nSigLevel = Optional TrustAll\nServer = file:///root/rskrepo/$arch" > /etc/pacman.conf
+	echo "\n\n[rskrepo]\nSigLevel = Optional TrustAll\nServer = file:///root/rskrepo/$arch" > /etc/pacman.conf
 
 	# Install needed script packages
 	pacman --noconfirm --needed -Sy dash neovim slmenu gawk grep
@@ -42,16 +42,16 @@ formatdrive() {
 	clear
 	echo "Are are installing arch on a non EFI bios or a EFI bios."
 	bs=$(echo "non EFI\nEFI" | slmenu -p "non EFI or EFI")
-	
+
 	clear
 	echo "Would you like to nuke the drive and install a completely fresh arch install, or configure your own partitions?"
-	auto=$(echo "Configure partitions\nNuke and auto reinstall" | slmenu -p "Configure the partitions or nuke and auto reinstall?"
+	auto=$(echo "Configure partitions\nNuke and auto reinstall" | slmenu -p "Configure the partitions or nuke and auto reinstall?")
 	if [ "$auto" = "Configue partitions" ]; then
 		clear
-		echo "Please delete, format, mount and anything else you need to do to the root partition, then 'exit' the shell"
+		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition, then 'exit' the shell"
 		echo "Note! The root partition should be mounted at /mnt"
 		echo "If you choise non EFI bios, the boot partition should be mounted at /mnt/boot/"
-		echo "If you choise EFI bios,, the boot partition should be mounted at /mnt/boot/efi"
+		echo "If you choise EFI bios, the boot partition should be mounted at /mnt/boot/efi"
 		sh
 	elif [ "$auto" = "Nuke and auto reinstall" ]; then
 		clear
@@ -89,7 +89,7 @@ formatdrive() {
 		if [ "$bs" = "EFI" ]; then
 			mkdir /mnt/boot/efi
 			mount "$cdrive"1 /mnt/boot/efi
-		else	
+		else
 			mount "$cdrive"1 /mnt/boot
 		fi
 		mkswap "$cdrive"2
@@ -111,7 +111,6 @@ install() {
 
 	clear
 	pacstrap /mnt base linux linux-firmware base-devel os-prober grub slmenu dash neovim terminus-font
-	
 	if [ "$bs" = "EFI" ]; then
 		pacstrap /mnt exfat-utils efibootmgr
 	fi

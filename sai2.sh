@@ -49,9 +49,6 @@ bootmanager() {
 		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 		if [ "$grb" = "Install Grub" ]; then
 			clear
-			echo "Please select the boot partition to install grub on"
-			gsdrive=$(lsblk -lp | grep "$cdisk" | grep "part $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a partition")
-			gcdrive=$(echo "$gsdrive" | awk '{print $1}')
 			if [ "$bs" = "non EFI" ]; then
 				grub-install "$cdrive"
 			elif [ "$bs" = "EFI" ]; then
@@ -59,6 +56,7 @@ bootmanager() {
 			fi
 			mkinitcpio -p grub
 			grub-mkconfig -o /boot/grub/grub.cfg
+		fi
 	elif [ "$auto" = "Nuke and auto reinstall" ]; then
 		clear
 		echo "SAI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
@@ -126,7 +124,7 @@ xorgpackages() {
 	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
 	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?")
 	if [ "$xpack" = "Install" ]; then
-		pacman --noconfirm -Sy xorg-server xorg-xinit xclip xorg-xbacklight compton xwallpaper
+		pacman --noconfirm -Sy xorg-server xorg-xinit xorg-xbacklight xwallpaper compton
 	fi
 }
 
