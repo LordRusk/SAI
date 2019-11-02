@@ -4,7 +4,7 @@
 pacman --needed --noconfirm -Sy git
 
 # Download custom repo
-git clone https://www.github.com/LordRusk/rskrepo ~
+git clone https://www.github.com/LordRusk/rskrepo ~/sai/
 cat /etc/pacman.conf customrepo > /etc/pacman.conff
 cp /etc/pacman.conff /etc/pacman.conf
   
