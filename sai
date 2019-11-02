@@ -5,10 +5,11 @@ pacman --needed --noconfirm -Sy git
 
 # Download custom repo
 git clone https://www.github.com/LordRusk/rskrepo ~/
-cat customrepo > /etc/pacman.conf
+cat /etc/pacman.conf customrepo > pacman.conff
+cp pacman.conff pacman.conf
   
 # Install needed script packages
-pacman --noconfirm --needed -Sy neovim slmenu
+pacman --noconfirm --needed -Sy dash neovim slmenu
 
 # Start the real script
 dash ~/sai/sai2
