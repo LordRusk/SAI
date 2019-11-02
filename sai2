@@ -87,7 +87,7 @@ formatdrive() {
 
 mirrorlist() {
 	clear
-	echo "The defualt arch mirrorlist can be slow and unreliable, please edit the mirrorlist for faster speeds."
+	echo "The defualt arch mirrorlist can be slow and unreliable, please edit the mirrorlist for faster speeds"
 	nxt
 	nvim /etc/pacman.d/mirrorlist
 }
