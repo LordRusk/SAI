@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/dash
 
 ### FUNCTIONS ###
 
@@ -94,6 +94,7 @@ formatdrive() {
 		fi
 		mkswap "$cdrive"2
 		swapon "$cdrive"2
+	fi
 }
 
 mirrorlist() {
