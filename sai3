@@ -3,7 +3,7 @@
 # Fetch sai.sh variables
 cdrive=$(cat temp | grep /dev)
 bs=$(cat temp | grep EFI)
-auto=$(cat temp | sed -n '3')
+auto=$(cat temp | grep partitions)
 
 ### FUNCTIONS ###
 
