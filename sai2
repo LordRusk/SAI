@@ -33,7 +33,7 @@ formatdrive() {
 
 	clear
 	echo "Would you like to nuke the drive and install a completely fresh arch install, or configure your own partitions?"
-	auto=$(echo "Configure partitions\nNuke and auto reinstall" | slmenu -l 2 -p "Configure the partitions or nuke and auto reinstall?")
+	auto=$(echo "Nuke partitions\nConfigure partitions" | slmenu -l 2 -p "Configure the partitions or nuke and auto reinstall?")
 	if [ "$auto" = "Configue partitions" ]; then
 		clear
 		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition, then 'exit' the shell"
