@@ -18,18 +18,6 @@ xit() {
 	fi
 }
 
-preinstall() {
-	# Make sure git is installed to download custom repo
-	pacman --needed --noconfirm -Sy git
-
-	# Download custom repo
-	git clone https://www.github.com/LordRusk/rskrepo ~/
-	echo "\n\n[rskrepo]\nSigLevel = Optional TrustAll\nServer = file:///root/rskrepo/$arch" > /etc/pacman.conf
-
-	# Install needed script packages
-	pacman --noconfirm --needed -Sy neovim slmenu
-}
-
 welcome() {
 	clear
 	echo "Welcome to SAI (Simple Automatic Install)"
@@ -138,9 +126,6 @@ postinstall() {
 
 
 ### THE ACTUAL SCRIPT ###
-
-# Get everything setup for the script
-prescript || error
 
 # Welcome the user
 welcome || error
