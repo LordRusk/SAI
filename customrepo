@@ -1,4 +1,4 @@
 
 [rskrepo]
 SigLevel = Optional TrustAll
-Server = file:///root/sai/rskrepo/$arch
+Server = file:///root/rskrepo/$arch
