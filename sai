@@ -5,7 +5,7 @@ pacman --needed --noconfirm -Sy git
 
 # Download custom repo
 git clone https://www.github.com/LordRusk/rskrepo ~/rskrepo
-cat /etc/pacman.conf customrepo > /etc/pacman.conff
+cat /etc/pacman.conf ~/sai/customrepo > /etc/pacman.conff
 cp /etc/pacman.conff /etc/pacman.conf
   
 # Install needed script packages
