@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/zsh
 
 ### FUNCTIONS ###
 
@@ -27,7 +27,7 @@ preinstall() {
 	echo "\n\n[rskrepo]\nSigLevel = Optional TrustAll\nServer = file:///root/rskrepo/$arch" > /etc/pacman.conf
 
 	# Install needed script packages
-	pacman --noconfirm --needed -Sy dash neovim slmenu gawk grep
+	pacman --noconfirm --needed -Sy neovim slmenu
 }
 
 welcome() {
