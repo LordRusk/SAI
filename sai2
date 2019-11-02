@@ -110,10 +110,10 @@ postinstall() {
 
 	echo "$cdrive\n$bs\n$auto" > /mnt/temp
 
-	cp sai2.sh /mnt
-	arch-chroot /mnt dash /sai2.sh
+	cp ~/sai/sai3 /mnt
+	arch-chroot /mnt dash /sai3
 
-	rm /mnt/sai2.sh
+	rm /mnt/sai3
 	rm /mnt/temp
 
 	clear
