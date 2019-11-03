@@ -40,6 +40,11 @@ formatdrive() {
 		echo "If you choise EFI bios, the boot partition should be mounted at /mnt/boot/efi"
 		sh
 		wait
+		
+		clear
+		echo "Please select the drive to install arch on"
+		sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
+		cdrive=$(echo "$sdrive" | awk '{print $1}')
 	elif [ "$auto" = "Nuke partitions" ]; then
 		clear
 		echo "Please select the drive you would like to install arch on"
