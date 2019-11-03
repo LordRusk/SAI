@@ -97,7 +97,7 @@ install() {
 	nxt
 
 	clear
-	pacstrap /mnt base linux linux-firmware os-prober grub slmenu dash neovim
+	pacstrap /mnt base linux linux-firmware os-prober sudo grub slmenu dash neovim
 	if [ "$bs" = "EFI" ]; then
 		pacstrap /mnt exfat-utils efibootmgr
 	fi
