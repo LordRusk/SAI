@@ -131,20 +131,19 @@ xorgpackages() {
 ### THE ACTUAL SCRIPT ###
 
 # Generate the locale and get local time configured
-locale || error "User Exited."
+locale || error
 
 # Ask if grub should be installed or if they want to install something else
 bootmanager
 
 # Get username and password for the new user, get the root password, set the root passwor, and make the new account
-getuserandpass || error "User Exited."
-adduserandpass || error "User Exited."
+getadduserroot || error
 
 # Ask if they would like to edit /etc/sudoers file
-sudoers || error "User Exited."
+sudoers || error
 
 # Ask if they would like to enable networkmanager
-wificonfig || error "User Exited."
+wificonfig || error
 
 # Ask if they would like to download xorg packages
-xorgpackages || error"User Exited."
+xorgpackages || error
