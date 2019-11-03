@@ -32,13 +32,13 @@ formatdrive() {
 	clear
 	echo "Would you like to nuke the drive and install a completely fresh arch install, or configure your own partitions?"
 	auto=$(echo "Nuke partitions\nConfigure partitions" | slmenu -l 2 -p "Configure the partitions or nuke and auto reinstall?")
-	if [ "$auto" = "Configue partitions" ]; then
+	if [ "$auto" = "Configure partitions" ]; then
 		clear
 		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition, then 'exit' the shell"
 		echo "Note! The root partition should be mounted at /mnt"
 		echo "If you choise non EFI bios, the boot partition should be mounted at /mnt/boot/"
 		echo "If you choise EFI bios, the boot partition should be mounted at /mnt/boot/efi"
-		sh
+		zsh
 		wait
 	elif [ "$auto" = "Nuke partitions" ]; then
 		clear
