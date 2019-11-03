@@ -34,10 +34,12 @@ formatdrive() {
 	auto=$(echo "Nuke partitions\nConfigure partitions" | slmenu -l 2 -p "Configure the partitions or nuke and auto reinstall?")
 	if [ "$auto" = "Configure partitions" ]; then
 		clear
-		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition, then 'exit' the shell"
+		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition"
+		echo "then 'exit' the shell"
 		echo "Note! The root partition should be mounted at /mnt"
 		echo "If you choise non EFI bios, the boot partition should be mounted at /mnt/boot/"
 		echo "If you choise EFI bios, the boot partition should be mounted at /mnt/boot/efi"
+		echo "It is also a good idea to mount your home partition on /mnt/home"
 		sh
 		wait
 		
@@ -71,7 +73,10 @@ formatdrive() {
 			mkfs.fat -F32 "$cdrive"1
 		else
 			mkfs.ext4 "$cdrive"1
-		fi
+		ficlear
+		echo "Please select the drive you would like to install arch on"
+		sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
+		cdrive=$(echo "$sdrive" | awk '{print $1}')
 		mkfs.ext4 "$cdrive"3
 		mkfs.ext4 "$cdrive"4
 		mount "$cdrive"3 /mnt
