@@ -67,7 +67,6 @@ bootmanager() {
 			elif [ "$bs" = "EFI" ]; then
 				grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
 			fi
-			mkinitcpio -p grub
 			grub-mkconfig -o /boot/grub/grub.cfg
 		fi
 	fi
