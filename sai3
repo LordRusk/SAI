@@ -86,6 +86,7 @@ getadduserroot() {
 			echo "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _."
 			name=$(echo "" | slmenu -p "Please type a valid username")
 		done
+		useradd -m -g wheel -s /bin/bash "$name"
 		clear
 		echo "Please enter a password for the user"
 		passwd "name"
