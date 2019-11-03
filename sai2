@@ -38,7 +38,7 @@ formatdrive() {
 		echo "Note! The root partition should be mounted at /mnt"
 		echo "If you choise non EFI bios, the boot partition should be mounted at /mnt/boot/"
 		echo "If you choise EFI bios, the boot partition should be mounted at /mnt/boot/efi"
-		zsh
+		sh
 		wait
 	elif [ "$auto" = "Nuke partitions" ]; then
 		clear
