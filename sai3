@@ -70,16 +70,19 @@ getadduserroot() {
 			name=$(echo "" | slmenu -p "Please type a valid username")
 		done
 		useradd -m -g wheel "$name"
-		clear
-		echo "Please enter a password for the user"
-		passwd "$name"
+		pmsg="Please enter a password for the user"
+		sup() { clear; echo "$pmsg"; passwd "$user" || rsup; }
+		rsup() { pmsg="The password you entered was incorrect, please enter a new password"; sup; }
+		sup
 	fi
 	clear
 	echo "Would you like to set a root password"
 	srp=$(echo "Set Root Password\nSkip" | slmenu -p "Set Root Password?")
 	if [ "$srp" = "Set Root Password" ]; then
-		clear
-		passwd root
+		pmsg="Enter a password for root"
+		srp() { clear; echo "pmsg"; passwd root || rsrp }
+		rsrp() { pmsg="The password you entered was incorrect, please enter a new password"; srp; }
+		srp
 	fi
 
 }
