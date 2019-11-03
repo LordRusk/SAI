@@ -1,9 +1,9 @@
 #!/bin/dash
 
 # Fetch sai.sh variables
-cdrive=$(cat /mnt/temp | grep /dev)
-bs=$(cat /mnt/temp | grep EFI)
-auto=$(cat /mnt/temp | grep partitions)
+cdrive=$(cat temp | grep /dev)
+bs=$(cat temp | grep EFI)
+auto=$(cat temp | grep partitions)
 
 ### FUNCTIONS ###
 
