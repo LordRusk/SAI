@@ -89,7 +89,7 @@ getadduserroot() {
 		useradd -m -g wheel "$name"
 		clear
 		echo "Please enter a password for the user"
-		passwd "name"
+		passwd "$name"
 	fi
 	clear
 	echo "Would you like to set a root password"
