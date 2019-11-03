@@ -43,32 +43,17 @@ locale() {
 }
 
 bootmanager() {
-	if [ "$auto" = "Configue partitions" ]; then
-		clear
-		echo "SAI automatically installs GRUB as it's boot manager, would you like to continue with this or skip?"
-		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
-		if [ "$grb" = "Install Grub" ]; then
-			clear
-			if [ "$bs" = "non EFI" ]; then
-				grub-install "$cdrive"
-			elif [ "$bs" = "EFI" ]; then
-				grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
-			fi
-			grub-mkconfig -o /boot/grub/grub.cfg
+	clear
+	echo "SAI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
+	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
+	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
+	if [ "$grb" = "Install Grub" ]; then
+		if [ "$bs" = "non EFI" ]; then
+			grub-install "$cdrive"
+		elif [ "$bs" = "EFI" ]; then
+			grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
 		fi
-	elif [ "$auto" = "Nuke partitions" ]; then
-		clear
-		echo "SAI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
-		echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
-		grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
-		if [ "$grb" = "Install Grub" ]; then
-			if [ "$bs" = "non EFI" ]; then
-				grub-install "$cdrive"
-			elif [ "$bs" = "EFI" ]; then
-				grub-install --target=x86_64-efi --bootloader-id=grub-uefi --recheck
-			fi
-			grub-mkconfig -o /boot/grub/grub.cfg
-		fi
+		grub-mkconfig -o /boot/grub/grub.cfg
 	fi
 }
 
