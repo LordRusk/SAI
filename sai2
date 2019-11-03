@@ -73,7 +73,8 @@ formatdrive() {
 			mkfs.fat -F32 "$cdrive"1
 		else
 			mkfs.ext4 "$cdrive"1
-		ficlear
+		fi
+		clear
 		echo "Please select the drive you would like to install arch on"
 		sdrive=$(lsblk -lp | grep "disk $" | awk '{print $1, "(" $4 ")"}' | slmenu -i -p "Choose a drive")
 		cdrive=$(echo "$sdrive" | awk '{print $1}')
