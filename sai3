@@ -80,7 +80,7 @@ getadduserroot() {
 	srp=$(echo "Set Root Password\nSkip" | slmenu -p "Set Root Password?")
 	if [ "$srp" = "Set Root Password" ]; then
 		pmsg="Enter a password for root"
-		srp() { clear; echo "pmsg"; passwd root || rsrp }
+		srp() { clear; echo "pmsg"; passwd root || rsrp; }
 		rsrp() { pmsg="The password you entered was incorrect, please enter a new password"; srp; }
 		srp
 	fi
