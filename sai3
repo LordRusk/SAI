@@ -57,7 +57,7 @@ bootmanager() {
 			mkinitcpio -p grub
 			grub-mkconfig -o /boot/grub/grub.cfg
 		fi
-	elif [ "$auto" = "Nuke and auto reinstall" ]; then
+	elif [ "$auto" = "Nuke partitions" ]; then
 		clear
 		echo "SAI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
 		echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
