@@ -13,7 +13,7 @@ How To
 ------
 After you boot from an arch usb, run these commands:
   pacman -Sy git
-  git clone https://www.github.com/LordRusk/sai
+  git clone https://www.github.com/lordrusk/sai
   sh sai/sai
 LPI uses slmenu and dash because its efficient, suckless, and easy to work with.
 
