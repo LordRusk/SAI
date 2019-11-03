@@ -68,7 +68,7 @@ formatdrive() {
 		xit
 
 		dd if=/dev/zero of="$cdrive"  bs=512  count=1
-		echo -e "d\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$sps"\nn\np\n3\n\n+"$rps"\nn\np\n4\n\n\nw" | fdisk "$cdrive"
+		echo -e "g\nn\np\n1\n\n+500mb\nn\np\n2\n\n+"$sps"\nn\np\n3\n\n+"$rps"\nn\np\n4\n\n\nw" | fdisk "$cdrive"
 
 		if [ "$bs" = "EFI" ]; then
 			mkfs.fat -F32 "$cdrive"1
