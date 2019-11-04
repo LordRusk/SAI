@@ -37,8 +37,8 @@ formatdrive() {
 		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition"
 		echo "then 'exit' the shell"
 		echo "Note! The root partition should be mounted at /mnt"
-		echo "If you choise non EFI bios, the boot partition should be mounted at /mnt/boot/"
-		echo "If you choise EFI bios, the boot partition should be mounted at /mnt/boot/efi"
+		echo "If you chose non EFI bios, the boot partition should be mounted at /mnt/boot/"
+		echo "If you chose EFI bios, the boot partition should be mounted at /mnt/boot/efi"
 		echo "It is also a good idea to mount your home partition on /mnt/home"
 		echo "For the script to work, if prompted, make a dos file system"
 		sh
