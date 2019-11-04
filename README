@@ -2,7 +2,7 @@
 ║SAI HAS BEEN TESTED AND WORKS WITH NON EFI BIOS, BUT SHOULD WORK WITH EFI ║
 ╚═════════════════════════════════════╝
 
-SAI - Simple Automatic Install
+SAI - Simple Arch Install
 ==============================
 SAI is the simple way to get a minimal Arch install. It is intended to make it easy to install and configure arch, and do it efficently at that.
 Not only is it great for complete reinstalls, it can easily handle just reinstalling your root partition, leaving the rest alone.
