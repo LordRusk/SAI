@@ -14,7 +14,7 @@ nxt() { echo "Next" | slmenu -p "Continue?"; }
 xit() {
 xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "exit" ]; then
-		error
+		exit
 	fi
 }
 
