@@ -13,13 +13,8 @@ nxt() { echo "Next" | slmenu -p "Continue?"; }
 
 xit() {
 xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
-	if [ "$xom" = "continue" ]; then
-		echo "epic"
-	elif [ "$xom" = "exit" ]; then
-		while [ "$xom" = "$xom" ]; do
-			error
-		done
-
+	if [ "$xom" = "exit" ]; then
+		error
 	fi
 }
 
