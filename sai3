@@ -70,7 +70,7 @@ getadduserroot() {
 			name=$(echo "" | slmenu -p "Please type a valid username")
 		done
 		useradd -m -g wheel "$name"
-		pmsg="Please enter a password for the user"
+		pmsg="Enter a password for the user"
 		sup() { clear; echo "$pmsg"; passwd "$name" || rsup; }
 		rsup() { pmsg="The password you entered was incorrect, please enter a new password"; sup; }
 		sup
