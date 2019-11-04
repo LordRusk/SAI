@@ -5,8 +5,7 @@
 SAI - Simple Arch Install
 ==============================
 SAI is the simple way to get a minimal Arch install. It is intended to make it easy to install and configure arch, and do it efficently at that.
-Not only is it great for complete reinstalls, it can easily handle just reinstalling your root partition, leaving the rest alone.
-It can also be used to just get grub reinstalled.
+Not only is it great for complete reinstalls, it can easily handle just reinstalling your root partition, leaving the rest alone, and a lot more.
 
 
 How To
@@ -20,4 +19,4 @@ LPI uses slmenu and dash because its efficient, suckless, and easy to work with.
 
 Support
 -------
-SAI supports EFI and non EFI bios, optional self frive configuring or nuking the drive and installing from the ground up, user creation and setting of root password, sudoers file editing, installation and enablation of NetworkManager, and installation of xorg-packages for easy wm installation.
+SAI supports EFI and non EFI bios, optional self drive configuring or nuking the drive and installing from the ground up, optional grub installation, user creation and setting of root password, sudoers file editing, installation and enablation of NetworkManager, and installation of xorg-packages for easy wm installation.
