@@ -9,7 +9,8 @@ nxt() { echo "Next" | slmenu -p "Continue?"; }
 xit() {
 	xon=$(echo "Continue\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "exit" ]; then
-		error
+		echo "Exited...:
+		exit
 	fi
 }
 
@@ -31,7 +32,7 @@ formatdrive() {
 	auto=$(echo "Nuke partitions\nConfigure partitions" | slmenu -l 2 -p "Configure the partitions or nuke and auto reinstall?")
 	if [ "$auto" = "Configure partitions" ]; then
 		clear
-		echo "Please delete, format, mount and anything else you need to do to the root and/or boot partition"
+		echo "to do to tPlease delete, format, mount and anything else you need he root and/or boot partition"
 		echo "then 'exit' the shell"
 		echo "Note! The root partition should be mounted at /mnt"
 		echo "If you chose non EFI bios, the boot partition should be mounted at /mnt/boot/"
