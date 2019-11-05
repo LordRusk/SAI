@@ -67,7 +67,7 @@ formatdrive() {
 
 		dd if=/dev/zero of="$cdrive"  bs=512  count=1
 		if [ "$bs" = "EFI" ]; then
-			echo -e "g\nn\n\n\n+500mb\nn\n\n\n+"$sps"\nn\n\n\n+"$rps"\nn\n\n\n\nw" | fdisk "$cdrive"
+			echo "g\nn\n\n\n+500mb\nn\n\n\n+"$sps"\nn\n\n\n+"$rps"\nn\n\n\n\nw" | fdisk "$cdrive"
 		else
 			echo -e "n\np\n\n\n+500mb\nn\np\n\n\n+"$sps"\nn\np\n\n\n+"$rps"\nn\np\n\n\n\nw" | fdisk "$cdrive"
 		fi
