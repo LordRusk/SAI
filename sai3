@@ -28,7 +28,7 @@ locale() {
 	echo "Please choose a city that has the same time zone as yours."
 	ct=$(echo "$cts" | slmenu -l 10 -p "Choose a city")
 	ln -sf /usr/share/zoneinfo/"$rg"/"$ct" /etc/localtime
-	hwclock --sync
+	hwclock --systohc
 
 	clear
 	echo "Please uncoomment 'en_US.UTF-8 UTF-8' and other locals you may need"
