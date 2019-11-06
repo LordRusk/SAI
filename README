@@ -1,7 +1,3 @@
-╔══════════════════════════════════════════════════════════════════════════╗
-║SAI HAS BEEN TESTED AND WORKS WITH NON EFI BIOS, BUT SHOULD WORK WITH EFI ║
-╚══════════════════════════════════════════════════════════════════════════╝
-
 SAI - Simple Arch Install
 ==============================
 SAI is the simple way to get a minimal Arch install. It is intended to make it easy to install and configure arch, and do it efficently at that.
