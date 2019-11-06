@@ -13,6 +13,7 @@ nxt() { echo "Next" | slmenu -p "Continue?"; }
 xit() {
 xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 	if [ "$xom" = "exit" ]; then
+		echo "Exiting..."
 		exit
 	fi
 }
@@ -38,8 +39,7 @@ locale() {
 
 bootmanager() {
 	clear
-	echo "SAI automatically installs GRUB as it's boot manager, if you would not like to install grub, "
-	echo "but install a different boot manager outside of LPI, select Exit, if not, continue."
+	echo "Would you like to install grub?"
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
 		grub-install "$cdrive"
@@ -78,11 +78,13 @@ getadduserroot() {
 }
 
 sudoers() {
-	clear
-	echo "Would you like to edit /etc/sudoers file? If so, your new user is in group wheel"
-	es=$(echo "Yes\\nNo" | slmenu -p "Edit /etc/sudoers?")
-	if [ "$es" = "Yes" ]; then
-		nvim /etc/sudoers
+	if [ "$cu" = "Create User" ]; then
+		clear
+		echo "Would you like to edit /etc/sudoers file? | New user is in wheel group"
+		es=$(echo "Yes\\nNo" | slmenu -p "Edit /etc/sudoers?")
+		if [ "$es" = "Yes" ]; then
+			nvim /etc/sudoers
+		fi
 	fi
 }
 
@@ -101,7 +103,7 @@ xorgpackages() {
 	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
 	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?")
 	if [ "$xpack" = "Install" ]; then
-		pacman --noconfirm -Sy xorg-server xorg-xinit xorg-xbacklight xwallpaper compton
+		pacman --noconfirm -Sy xorg compton
 	fi
 }
 
