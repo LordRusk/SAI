@@ -32,13 +32,11 @@ formatdrive() {
 	auto=$(echo "Nuke partitions\nConfigure partitions" | slmenu -l 2 -p "Configure the partitions or nuke and auto reinstall?")
 	if [ "$auto" = "Configure partitions" ]; then
 		clear
-		echo "to do to tPlease delete, format, mount and anything else you need he root and/or boot partition"
-		echo "then 'exit' the shell"
-		echo "Note! The root partition should be mounted at /mnt"
-		echo "If you chose non EFI bios, the boot partition should be mounted at /mnt/boot/"
-		echo "If you chose EFI bios, the boot partition should be mounted at /mnt/boot/efi"
-		echo "It is also a good idea to mount your home partition on /mnt/home"
-		echo "For the script to work, if prompted, make a dos file system"
+		if [ "$bs" = "non EFI" ]; then
+			echo "If you're going to (re)install grub, mount your boot partition at /mnt/boot"
+		elif [ "$bs" = "EFI" ]; then
+			echo "If you're going to (re)install grub, mount your boot partition at /mnt/boot/efi"
+		fi
 		sh
 		wait
 		
@@ -53,8 +51,8 @@ formatdrive() {
 		cdrive=$(echo "$sdrive" | awk '{print $1}')
 
 		clear
-		echo "How big do you want your root partition to be? Defualt is 30gb"
-		rps=$(echo "30gb" | slmenu -i -p "Size of root partition")
+		echo "How big do you want your root partition to be? Defualt is 20gb"
+		rps=$(echo "20gb" | slmenu -i -p "Size of root partition")
 
 		clear
 		echo "How big do you want your swap partition? Defualt is 1.5x your ram"
@@ -68,13 +66,9 @@ formatdrive() {
 		dd if=/dev/zero of="$cdrive"  bs=512  count=1
 		if [ "$bs" = "EFI" ]; then
 			echo "g\nn\n\n\n+500mb\nn\n\n\n+"$sps"\nn\n\n\n+"$rps"\nn\n\n\n\nw" | fdisk "$cdrive"
-		else
-			echo -e "n\np\n\n\n+500mb\nn\np\n\n\n+"$sps"\nn\np\n\n\n+"$rps"\nn\np\n\n\n\nw" | fdisk "$cdrive"
-		fi
-
-		if [ "$bs" = "EFI" ]; then
 			mkfs.fat -F32 "$cdrive"1
 		else
+			echo -e "n\np\n\n\n+500mb\nn\np\n\n\n+"$sps"\nn\np\n\n\n+"$rps"\nn\np\n\n\n\nw" | fdisk "$cdrive"
 			mkfs.ext4 "$cdrive"1
 		fi
 		mkfs.ext4 "$cdrive"3
@@ -103,11 +97,6 @@ mirrorlist() {
 
 install() {
 	clear
-	echo "It's time to actually install arch, ready?"
-	xprompt="Ready?"
-	nxt
-
-	clear
 	pacstrap /mnt base linux linux-firmware os-prober sudo grub slmenu dash neovim
 	if [ "$bs" = "EFI" ]; then
 		pacstrap /mnt exfat-utils efibootmgr
@@ -126,7 +115,7 @@ postinstall() {
 	rm /mnt/temp
 
 	clear
-	echo "As long as there were no hidden errors, you should be able to reboot and boot into your new install."
+	echo "SAI has finished, you would you like to reboot?"
 	rb=$(echo "Reboot\nDon't Reboot" | slmenu -p "Would you like to reboot now?")
 	if [ "$rb" = "Reboot" ]; then
 		reboot
