@@ -97,10 +97,7 @@ mirrorlist() {
 
 install() {
 	clear
-	pacstrap /mnt base linux linux-firmware os-prober sudo grub slmenu dash neovim
-	if [ "$bs" = "EFI" ]; then
-		pacstrap /mnt exfat-utils efibootmgr
-	fi
+	pacstrap /mnt base linux linux-firmware pacman slmenu dash neovim
 }
 
 postinstall() {
