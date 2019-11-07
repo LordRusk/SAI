@@ -19,4 +19,4 @@ The end result will be a system you can completely build from the ground up. The
 
 Support
 -------
-SAI supports EFI and non EFI bios, optional self drive configuring (expects you to know basic linux commands) or nuking the drive and installing from the ground up, optional grub installation, user creation and setting of root password, sudoers file editing, installation and enablation of NetworkManager.
+SAI supports EFI and non EFI bios, optional self drive configuring (expects you to know basic linux commands) or nuking the drive and installing from the ground up, optional grub installation, user creation and setting of root password, sudo installation and editing of /etc/sudoers file, and installation and enablation of NetworkManager.
