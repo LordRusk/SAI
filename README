@@ -6,7 +6,7 @@ Not only is it great for complete reinstalls, it can easily handle just reinstal
 
 How To
 ------
-After you boot from an arch usb, run these commands:
+After you boot from an arch usb, run these commands once connected to the internet:
   pacman -Sy git
   git clone https://www.github.com/lordrusk/sai
   sh sai/sai
