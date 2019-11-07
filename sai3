@@ -1,6 +1,6 @@
 #!/bin/dash
 
-# Fetch sai.sh variables
+# Fetch sai2 variables
 cdrive=$(cat temp | grep /dev)
 auto=$(cat temp | grep partitions)
 
@@ -19,14 +19,12 @@ xon=$(echo "Continue\\nExit" | slmenu -i -p "$xprompt")
 }
 
 locale() {
-	rgs=$(ls /usr/share/zoneinfo)
 	clear
 	echo "Please choose a region from this list"
-	rg=$(echo "$rgs" | slmenu -l 10 -p "Choose a region")
-	cts=$(ls /usr/share/zoneinfo/"$rg")
+	rg=$(ls /usr/share/zoneinfo | slmenu -l 10 -p "Choose a region")
 	clear
 	echo "Please choose a city that has the same time zone as yours."
-	ct=$(echo "$cts" | slmenu -l 10 -p "Choose a city")
+	ct=$(ls /usr/share/zoneinfo/"$rg" | slmenu -l 10 -p "Choose a city")
 	ln -sf /usr/share/zoneinfo/"$rg"/"$ct" /etc/localtime
 	hwclock --systohc
 
@@ -58,7 +56,7 @@ getadduserroot() {
 	cu=$(echo "Create User\nSkip" | slmenu -p "Create User?")
 	if [ "$cu" = "Create User" ]; then
 		clear
-		name=$(echo "" | slmenu -p "Please enter the name of your new user")
+		name=$(echo "user" | slmenu -p "Please enter the name of your new user")
 		while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
 			clear
 			echo "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _."
@@ -88,6 +86,7 @@ sudoers() {
 		echo "Would you like to edit /etc/sudoers file? | New user is in wheel group"
 		es=$(echo "Yes\\nNo" | slmenu -p "Edit /etc/sudoers?")
 		if [ "$es" = "Yes" ]; then
+			pacman -Syu sudo
 			nvim /etc/sudoers
 		fi
 	fi
@@ -119,3 +118,6 @@ sudoers || error
 
 # Ask if they would like to enable networkmanager
 wificonfig || error
+
+# Do a full system upgrade before asking to reboot
+pacman -Syu
