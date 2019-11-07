@@ -98,15 +98,6 @@ wificonfig() {
 	fi
 }
 
-xorgpackages() {
-	clear
-	echo "Would you like to install the needed packages for a desktop enviroment / window manager? | Xorg packages"
-	xpack=$(echo "Install\nSkip" | slmenu -p "Would you like to install?")
-	if [ "$xpack" = "Install" ]; then
-		pacman --noconfirm -Sy xorg compton
-	fi
-}
-
 ### THE ACTUAL SCRIPT ###
 
 # Generate the locale and get local time configured
@@ -123,6 +114,3 @@ sudoers || error
 
 # Ask if they would like to enable networkmanager
 wificonfig || error
-
-# Ask if they would like to download xorg packages
-xorgpackages || error
