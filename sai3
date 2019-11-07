@@ -102,6 +102,12 @@ wificonfig() {
 	fi
 }
 
+cleanup() {
+	pacman -Rdd slmenu neovim dashs
+	pacman -Rns $(pacman -Qtdq)
+	pacman -Syu
+}
+
 ### THE ACTUAL SCRIPT ###
 
 # Generate the locale and get local time configured
@@ -119,5 +125,5 @@ sudoers || error
 # Ask if they would like to enable networkmanager
 wificonfig || error
 
-# Do a full system upgrade before asking to reboot
-pacman -Syu
+# Cleanup the packages on the (new) install
+cleanup || error
