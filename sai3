@@ -104,7 +104,7 @@ wificonfig() {
 
 cleanup() {
 	clear
-	pacman -Rdd slmenu neovim dashs
+	pacman -Rdd slmenu neovim dash
 	pacman -Rns $(pacman -Qtdq)
 	pacman -Syu
 }
