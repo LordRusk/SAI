@@ -2,6 +2,7 @@
 
 # Fetch sai2 variables
 cdrive=$(cat temp | grep /dev)
+bs=$(cat temp | grep EFI)
 auto=$(cat temp | grep partitions)
 
 ### FUNCTIONS ###
