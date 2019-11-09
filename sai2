@@ -105,7 +105,7 @@ install() {
 postinstall() {
 	genfstab -U /mnt >> /mnt/etc/fstab
 
-	echo "$cdrive\n$auto" > /mnt/temp
+	echo "$cdrive\n$bs\n$auto" > /mnt/temp
 
 	cp ~/sai/sai3 /mnt
 	arch-chroot /mnt dash /sai3
