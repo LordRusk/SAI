@@ -37,6 +37,8 @@ formatdrive() {
 		elif [ "$bs" = "EFI" ]; then
 			echo "If you're going to (re)install grub, mount your boot partition at /mnt/boot/efi"
 		fi
+		echo "General rule of thumb, root partition is mounted at /mnt"
+		echo "and home pertition (if you have one) is mounted at /mnt/home"
 		sh
 		wait
 		
