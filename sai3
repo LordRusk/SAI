@@ -86,7 +86,7 @@ sudoers() {
 		echo "Would you like to edit /etc/sudoers file? | New user is in wheel group"
 		es=$(echo "Yes\\nNo" | slmenu -p "Edit /etc/sudoers?")
 		if [ "$es" = "Yes" ]; then
-			pacman -Syu sudo
+			pacman --noconfirm -S sudo
 			nvim /etc/sudoers
 		fi
 	fi
