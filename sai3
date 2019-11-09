@@ -42,7 +42,7 @@ bootmanager() {
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
 		if [ "$bs" = "EFI" ]; then
-			pacman --noconfirm -S exfat-utils efibootmgr grub
+			pacman --noconfirm -S efibootmgr grub
 		else
 			pacman --noconfirm -S grub
 		fi
