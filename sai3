@@ -42,9 +42,23 @@ bootmanager() {
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
 		if [ "$bs" = "EFI" ]; then
-			pacman --noconfirm -S efibootmgr grub
+			if [ $auto = "Configure Partitions" ]; then
+				clear
+				inosprobe=$(echo "No\nYes" | slmenu -p "Are you installing arch alongside another OS(s)?")
+				if [ $inosprobe = "Yes" ]; then
+					pacman -S efibootmgr os-prober grub
+				else
+					pacman --noconfirm -S efibootmgr grub
+				fi
 		else
-			pacman --noconfirm -S grub
+			if [ $auto = "Configure Partitions" ]; then
+				clear
+				inosprobe=$(echo "No\nYes" | slmenu -p "Are you installing arch alongside another OS(s)?")
+				if [ $inosprobe = "Yes" ]; then
+					pacman -S os-prober grub
+				else
+					pacman --noconfirm -S grub
+			fi
 		fi
 		grub-install "$cdrive"
 		grub-mkconfig -o /boot/grub/grub.cfg
