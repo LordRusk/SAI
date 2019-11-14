@@ -3,7 +3,7 @@
 # Fetch sai2 variables
 cdrive=$(cat temp | grep /dev)
 bs=$(cat temp | grep EFI)
-auto=$(cat temp | grep partitions)
+auto=$(cat temp | grep Partitions)
 
 ### FUNCTIONS ###
 
@@ -42,17 +42,17 @@ bootmanager() {
 	grb=$(echo "Install Grub\nSkip" | slmenu -p "Install or Skip")
 	if [ "$grb" = "Install Grub" ]; then
 		if [ "$bs" = "EFI" ]; then
-			if [ $auto = "Configure Partitions" ]; then
+			if [ $auto = "Configure partitions" ]; then
 				clear
 				inosprobe=$(echo "No\nYes" | slmenu -p "Are you installing arch alongside another OS(s)?")
 				if [ $inosprobe = "Yes" ]; then
-					pacman -S efibootmgr os-prober grub
+					pacman --noconfirm -S efibootmgr os-prober grub
 				else
 					pacman --noconfirm -S efibootmgr grub
 				fi
 			fi
 		else
-			if [ $auto = "Configure Partitions" ]; then
+			if [ $auto = "Configure partitions" ]; then
 				clear
 				inosprobe=$(echo "No\nYes" | slmenu -p "Are you installing arch alongside another OS(s)?")
 				if [ $inosprobe = "Yes" ]; then
