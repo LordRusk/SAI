@@ -50,6 +50,7 @@ bootmanager() {
 				else
 					pacman --noconfirm -S efibootmgr grub
 				fi
+			fi
 		else
 			if [ $auto = "Configure Partitions" ]; then
 				clear
@@ -58,6 +59,7 @@ bootmanager() {
 					pacman -S os-prober grub
 				else
 					pacman --noconfirm -S grub
+				fi
 			fi
 		fi
 		grub-install "$cdrive"
