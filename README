@@ -1,3 +1,8 @@
+PROJECT ABANDONED
+=================
+I have abandond this project. I wrote this while I was less expeirenced with scripting, and (Arch) Linux in general. [This itself was a quality rewrite.](https://github.com/LordRusk/old_SAI) I had to do more then a qualirt rewrite for this. The new equivelent is [Art Wizard](https://github.com/lordrusk/art-wizard). Go check it out and support.
+
+
 SAI - Simple Arch Install
 ==============================
 SAI is the simple way to get a minimal Arch install. It is intended to make it easy to install and configure arch, and do it efficently at that.
